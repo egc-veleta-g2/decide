@@ -9,7 +9,7 @@ from .models import Question, QuestionOption, Voting
 from .serializers import SimpleVotingSerializer, VotingSerializer
 from base.perms import UserIsStaff
 from base.models import Auth
-from .forms import YesOrNotForm
+from .forms import dichotomyForm
 from django.http.response import HttpResponseRedirect
 
 
@@ -103,21 +103,25 @@ class VotingUpdate(generics.RetrieveUpdateDestroyAPIView):
         return Response(msg, status=st)
 
 
-def YesOrNotQuestion(request):
-    form = YesOrNotForm()
+def dichotomyQuestion(request):
+    form = dichotomyForm()
     question_desc = None
-
+    question_ratio = None
     if request.method == 'POST':
-        form = YesOrNotForm(request.POST)
-
+        form = dichotomyForm(request.POST)
         if form.is_valid():
+            question_ratio = form.cleaned_data['question_ratio']
+            choices = ['SI/NO','A favor/En contra','Verdadero/Falso','Bien/Mal']
             question_desc = form.cleaned_data['question_desc']
             question = Question(desc=question_desc)
             question.save()
-            yesanswer = QuestionOption(question=question, number=1, option="SÍ")
+            questions = question_ratio.split("/")
+            yesanswer = QuestionOption(question=question, number=1, option=questions[0])
             yesanswer.save()
-            notanswer = QuestionOption(question=question, number=2, option="NO")
+            notanswer = QuestionOption(question=question, number=2, option=questions[1])
             notanswer.save()
+
             return HttpResponseRedirect('/admin/voting/question')
 
-    return render(request, 'yesornotform.html', {'form': form})
+
+    return render(request, 'dichotomyform.html', {'form': form})

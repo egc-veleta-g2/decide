@@ -1,7 +1,7 @@
 import django_filters.rest_framework
 from django.conf import settings
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, status
 from rest_framework.response import Response
 
@@ -9,6 +9,8 @@ from .models import Question, QuestionOption, Voting
 from .serializers import SimpleVotingSerializer, VotingSerializer
 from base.perms import UserIsStaff
 from base.models import Auth
+from .forms import YesOrNotForm
+from django.http.response import HttpResponseRedirect
 
 
 class VotingView(generics.ListCreateAPIView):
@@ -99,3 +101,23 @@ class VotingUpdate(generics.RetrieveUpdateDestroyAPIView):
             msg = 'Action not found, try with start, stop or tally'
             st = status.HTTP_400_BAD_REQUEST
         return Response(msg, status=st)
+
+
+def YesOrNotQuestion(request):
+    form = YesOrNotForm()
+    question_desc = None
+
+    if request.method == 'POST':
+        form = YesOrNotForm(request.POST)
+
+        if form.is_valid():
+            question_desc = form.cleaned_data['question_desc']
+            question = Question(desc=question_desc)
+            question.save()
+            yesanswer = QuestionOption(question=question, number=1, option="SÍ")
+            yesanswer.save()
+            notanswer = QuestionOption(question=question, number=2, option="NO")
+            notanswer.save()
+            return HttpResponseRedirect('/admin/voting/question')
+
+    return render(request, 'yesornotform.html', {'form': form})

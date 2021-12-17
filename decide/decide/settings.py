@@ -72,6 +72,8 @@ MODULES = [
 
 BASEURL = 'https://egc-veleta-g2.herokuapp.com/'
 
+APIS = {}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

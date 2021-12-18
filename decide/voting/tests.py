@@ -214,8 +214,7 @@ class VotingTestCase(BaseTestCase):
         self.login()
         data = {'question_desc': 'Example','question_ratio':'SI/NO'}
         response = self.client.post('/voting/dichotomy', data)
-        self.assertEqual(response.status_code, 301)
-        
+        self.assertEqual(response.status_code, 301)     
         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
                                        

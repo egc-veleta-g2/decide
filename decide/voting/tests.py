@@ -1,6 +1,5 @@
 import random
 import itertools
-from django.db.models.query_utils import select_related_descend
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -8,8 +7,6 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 
-from selenium import webdriver as wd
-from selenium.webdriver import ActionChains
 from base import mods
 from base.tests import BaseTestCase
 from census.models import Census

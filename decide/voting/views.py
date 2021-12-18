@@ -111,7 +111,6 @@ def dichotomyQuestion(request):
         form = dichotomyForm(request.POST)
         if form.is_valid():
             question_ratio = form.cleaned_data['question_ratio']
-            choices = ['SI/NO','A favor/En contra','Verdadero/Falso','Bien/Mal']
             question_desc = form.cleaned_data['question_desc']
             question = Question(desc=question_desc)
             question.save()

@@ -2,3 +2,19 @@
     margin-top: 20px;
     margin-left: 40px;
 }
+.estadisticas_votacion {
+    margin-top: 10px;
+    margin-left: 60px;
+    border: 1px solid rgb(0, 0, 0);
+}
+#metricas td {
+    border: 1px solid rgb(0, 0, 0);
+    padding: 8px;
+  }
+#metricas td:nth-child(1){
+    background-color: #c8c8c8;
+}
+#titulo_metricas {
+    margin-top: 10px;
+    margin-left: 60px;
+}

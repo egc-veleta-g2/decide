@@ -27,8 +27,10 @@ class VisualizerView(TemplateView):
             context['abstencion'] = abstencion
             fecha_inicio=r[0]['start_date']
             fecha_fin= r[0]['end_date']
-            diferencia = dateComparer(fecha_inicio,fecha_fin)
-            context['duracion'] = diferencia
+            fechas = dateComparer(fecha_inicio,fecha_fin)
+            context['duracion'] = fechas[0]
+            context['inicio'] = fechas[1]
+            context['fin'] = fechas[2]
         except:
             raise Http404
 
@@ -55,7 +57,25 @@ def dateComparer(start_date,end_date):
 
     fecha_inicio= datetime(int(anyo1),int(mes1),int(dia1),int(hora1),int(minuto1),int(segundo1),int(microsegundo1))
     fecha_fin= datetime(int(anyo2),int(mes2),int(dia2),int(hora2),int(minuto2),int(segundo2),int(microsegundo2))
-    #ahora mismo, devuelve la diferencia en formato hora:min:seg.miliseg
+    fecha_inicio_string = "Día: " + dia1 + "-"+ mes1 + "-" +anyo1 +" Hora " + hora1+":"+minuto1+":"+segundo1
+    fecha_fin_string = "Día: " + dia2 + "-"+ mes2 + "-" +anyo2+ " Hora " + hora2+":"+minuto2+":"+segundo2 
+
+    #parseamos la diferencia entre las fechas
     diferencia = fecha_fin - fecha_inicio
 
-    return diferencia
+    return [dateParser(diferencia),fecha_inicio_string,fecha_fin_string]
+
+def dateParser(diferencia):
+    dias= diferencia.days
+    if(dias<0):
+        dias=0
+    sec= diferencia.seconds
+    if(sec>60):
+        min= sec//60
+        sec= sec%60
+    if(min>60):
+        horas= min//60
+        min= min%60
+    else:
+        horas= 0
+    return str(dias) + " días, "+str(horas)+ " horas, "+str(min)+" minutos y "+str(sec)+" segundos "

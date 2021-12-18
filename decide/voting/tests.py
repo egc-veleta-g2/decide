@@ -208,3 +208,26 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), 'Voting already tallied')
+
+    def test_create_wrong_dichotomy_voting(self):
+        # Creación con opciones de preguntas incorrectas
+        descripcion = 'Descripción de ejemplo'
+        data = {'question_desc': descripcion, 'question_ratio':'incorrecto'}
+        self.login()
+        response = self.client.put('/voting/dichotomy/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+        
+        voting = Voting.objects.filter(desc=descripcion)
+        self.assertEqual(len(voting), 0)
+        
+        # Creación con descripción incorrecta
+        data = {'question_desc': '', 'question_ratio':'SI/NO'}
+        self.login()
+        response = self.client.put('/voting/dichotomy/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        # Creación con ambos campos incorrectos
+        data = {'question_desc': '', 'question_ratio':'incorrecto'}
+        self.login()
+        response = self.client.put('/voting/dichotomy/', data, format='json')
+        self.assertEqual(response.status_code, 200)

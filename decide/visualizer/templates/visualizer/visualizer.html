@@ -15,10 +15,50 @@
         <b-navbar type="dark" variant="secondary">
             <b-navbar-brand tag="h1">Decide</b-navbar-brand>
         </b-navbar>
+        <div class="estadisticas_votacion">
+            <h2 v-if="!voting.start_date">Votación no comenzada</h2>
+            <h2 v-else-if="!voting.end_date">Votación en curso</h2>
+            <div v-else>
+            <table>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                    <td>Descripcion votacion</td>
+                    <td>[[ voting.desc ]]</td>
+                </tr>
+                <tr>
+                  <td>Fecha inicio</td>
+                  <td>[[ voting.start_date ]]</td>
+                </tr>
+                <tr>
+                    <td>Fecha fin</td>
+                    <td>[[ voting.end_date ]]</td>
+                </tr>
+                <tr>
+                    <td>Duración total de la votación</td>
+                    <td>{{duracion}}</td>
+                </tr>
+                <tr>
+                    <td>Cantidad de votos</td>
+                    <td>{{cantidad_votos}}</td>
+                </tr>
+                <tr>
+                    <td>Cantidad de votantes</td>
+                    <td>{{cantidad_votantes}}</td>
+                </tr>
+                <tr>
+                    <td>Porcentaje de abstención</td>
+                    <td>{{abstencion}} %</td>
+                </tr>
+              </table>
+            </div>
+        </div>
 
         <div class="voting container">
             <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
-
             <h2 v-if="!voting.start_date">Votación no comenzada</h2>
             <h2 v-else-if="!voting.end_date">Votación en curso</h2>
             <div v-else>

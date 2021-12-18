@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block extrahead %}
+    <link type="text/css" rel="stylesheet"
+         href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+{% endblock %}
+{% block content %}
+    <h1>Página de inicio decide!</h1>
+    <br>
+    <ol>
+        <li><a href="http://127.0.0.1:8000/admin/">Administración</a></li>
+        <li><a href="http://127.0.0.1:8000/doc/">Documentación</a></li>
+    </ol>
+{% endblock %}

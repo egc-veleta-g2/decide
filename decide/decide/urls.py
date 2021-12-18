@@ -25,7 +25,7 @@ schema_view = get_swagger_view(title='Decide API')
 urlpatterns = [
     path('', InicioView.as_view()),
     path('admin/', admin.site.urls, name="admin"),
-    path('doc/', schema_view),
+    path('doc/', schema_view, name="doc"),
     path('gateway/', include('gateway.urls')),
 ]
 

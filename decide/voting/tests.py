@@ -3,7 +3,7 @@ import itertools
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 
@@ -222,6 +222,8 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/admin/voting/voting/add', data)
         self.assertEqual(response.status_code, 301)
 
+
+    @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
     def test_create_wrong_dichotomy_voting(self):
         # Creación con opciones de preguntas incorrectas
         descripcion = 'Descripción de ejemplo'
@@ -229,11 +231,7 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
-        
-        question = Question.objects.filter(desc=descripcion)
-        self.assertEqual(len(question), 0)
-        
-        # Creación con descripción incorrecta
+
         data = {'question_desc': '', 'question_ratio':'SI/NO'}
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')

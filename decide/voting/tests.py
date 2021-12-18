@@ -231,3 +231,14 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
+
+        data = {'question_desc': '', 'question_ratio':'SI/NO'}
+        self.login()
+        response = self.client.put('/voting/dichotomy/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        # Creación con ambos campos incorrectos
+        data = {'question_desc': '', 'question_ratio':'incorrecto'}
+        self.login()
+        response = self.client.put('/voting/dichotomy/', data, format='json')
+        self.assertEqual(response.status_code, 200)

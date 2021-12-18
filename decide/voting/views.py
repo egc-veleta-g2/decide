@@ -123,5 +123,4 @@ def dichotomyQuestion(request):
 
             return HttpResponseRedirect('/admin/voting/question')
 
-
     return render(request, 'dichotomyform.html', {'form': form})

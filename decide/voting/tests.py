@@ -1,5 +1,6 @@
 import random
 import itertools
+from django.db.models.query_utils import select_related_descend
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -7,6 +8,8 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 
+from selenium import webdriver as wd
+from selenium.webdriver import ActionChains
 from base import mods
 from base.tests import BaseTestCase
 from census.models import Census
@@ -208,3 +211,20 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), 'Voting already tallied')
+
+    def test_dichotomous_voting(self):
+        self.login()
+        data = {'question_desc': 'Example','question_ratio':'SI/NO'}
+        response = self.client.post('/voting/dichotomy', data)
+        self.assertEqual(response.status_code, 301)
+        
+        a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
+                                          defaults={'me': True, 'name': 'test auth'})
+                                       
+        data = {'name': 'V1','desc':'Descrip','question':'Example','auths':a}
+        response = self.client.put('/admin/voting/voting/add', data)
+        self.assertEqual(response.status_code, 301)
+
+        
+
+        

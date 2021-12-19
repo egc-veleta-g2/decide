@@ -1,0 +1,116 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+    <link type="text/css" rel="stylesheet" href="{% static 'booth/inicio_style.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="/">{{ site_header|default:_('Bienvenido/a a la cabina de votación') }}  <i class="fas fa-person-booth"></i></a></h1>
+{% endblock %}
+
+{% block content %}
+{% if usuario.id %}
+<div class="row">
+    <div class="col-lg-6" id="divNoVotado">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-widget widget-user shadow-sm">
+                    <div class="widget-user-header">
+                        <h5 class="widget-user-desc text-left">
+                            <i class="fas fa-vote-yea"></i>
+                            &nbsp;&nbsp;Listado de votaciones sin realizar ({{ listNoVotados|length }})
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="accordion accordion-flush" id="accordionFlushGeneral1">
+                            {% for votacion in listNoVotados %}
+                                <div class="accordion-item">
+                                    <h4 class="accordion-header" id="flush-heading{{votacion.id}}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{votacion.id}}" href="/booth/{{votacion.id}}" aria-expanded="false" aria-controls="collapse{{votacion.id}}">
+                                            {{votacion.name}}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{votacion.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{votacion.id}}" data-bs-parent="#accordionFlushGeneral1">
+                                        <div class="accordion-body">
+                                            <p>Descripción: {{votacion.desc}}</p>
+                                            {% if votacion.start_date == None %}
+                                                <p>Fecha de comienzo: Sin comenzar.</p>
+                                            {% endif %}
+                                            {% if votacion.start_date != None %}
+                                                <p>Fecha de comienzo: {{votacion.start_date}}</p>
+                                            {% endif %}
+                                            {% if votacion.end_date == None %}
+                                                <p>Fecha de finalización: Sin finalizar.</p>
+                                            {% endif %}
+                                            {% if votacion.end_date != None %}
+                                                <p>Fecha de finalización: {{votacion.end_date}}</p>
+                                            {% endif %}
+                                            {% if votacion.start_date != None %}
+                                                <a href="/booth/{{votacion.id}}">Acceder a la votación</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6" id="divVotado">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-widget widget-user shadow-sm">
+                    <div class="widget-user-header">
+                        <h5 class="widget-user-desc text-left">
+                            <i class="fas fa-vote-yea"></i>
+                            &nbsp;&nbsp;Listado de votaciones realizadas ({{ listVotados|length }})
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="accordion accordion-flush" id="accordionFlushGeneral2">
+                            {% for votacion in listVotados %}
+                                <div class="accordion-item">
+                                    <h4 class="accordion-header" id="flush-heading{{votacion.id}}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{votacion.id}}" href="/booth/{{votacion.id}}" aria-expanded="false" aria-controls="collapse{{votacion.id}}">
+                                            {{votacion.name}}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{votacion.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{votacion.id}}" data-bs-parent="#accordionFlushGeneral2">
+                                        <div class="accordion-body">
+                                            <p>Descripción: {{votacion.desc}}</p>
+                                            <p>Fecha de comienzo: {{votacion.start_date}}</p>
+                                            {% if votacion.end_date == None %}
+                                                <p>Fecha de finalización: Sin finalizar.</p>
+                                            {% endif %}
+                                            {% if votacion.end_date != None %}
+                                                <p>Fecha de finalización: {{votacion.end_date}}</p>
+                                            {% endif %}
+                                            <a href="/booth/{{votacion.id}}">Acceder a la votación</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if not usuario.id %}
+<div class="alert alert-danger" id="divAlert" role="alert">
+    Parece que no has iniciado sesión
+    <button class="btn btn-primary" id="alertButton">Login</button>  
+</div>
+{% endif %}
+{% endblock %}

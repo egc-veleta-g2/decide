@@ -23,7 +23,7 @@ from base.views import InicioView
 schema_view = get_swagger_view(title='Decide API')
 
 urlpatterns = [
-    path('', InicioView.as_view()),
+    path('', InicioView.as_view(), name="inicio"),
     path('admin/', admin.site.urls, name="admin"),
     path('doc/', schema_view, name="doc"),
     path('gateway/', include('gateway.urls')),

@@ -2,3 +2,19 @@
     margin-top: 20px;
     margin-left: 40px;
 }
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+.decide-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    background-color: #0d6efd;
+    border-top: .1rem solid #0d6efd;
+    display: block;
+}

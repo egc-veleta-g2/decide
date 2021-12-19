@@ -7,3 +7,6 @@ class dichotomyForm(forms.Form):
     question_desc = forms.CharField(label="Escriba una pregunta", widget=forms.Textarea, required=True)
     question_ratio = forms.ChoiceField(label=format_html("<br><br>{} ","Seleccione el tipo respuesta  "), widget=forms.RadioSelect, required=True,choices=choices)
 
+class chooseTypeForm(forms.Form):
+    choices = [('m','Pregunta multielección'),('d','Pregunta dicotómica')]
+    type_ratio = forms.ChoiceField(label="Tipo:", widget=forms.RadioSelect, required=True,choices=choices)

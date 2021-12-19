@@ -2,12 +2,18 @@ import json
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.http import Http404
-
+from voting.models import Voting
 from base import mods
 
 
 class VisualizerInicioView(TemplateView):
     template_name = 'visualizer/inicio.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        votaciones_finalizadas = Voting.objects.filter(end_date__isnull=False, tally__isnull=False)
+        context['vot_finalizadas'] = votaciones_finalizadas
+        return context
 
 
 class VisualizerView(TemplateView):

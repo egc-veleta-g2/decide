@@ -17,6 +17,8 @@
 #alertButton {
     padding: 5px 15px;
     margin-top: 2%;
+    text-decoration: none;
+    color: #fff;
 }
 
 .fa-vote-yea {

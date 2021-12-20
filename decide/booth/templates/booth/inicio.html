@@ -35,7 +35,7 @@
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{votacion.id}}" href="/booth/{{votacion.id}}" aria-expanded="false" aria-controls="collapse{{votacion.id}}">
                                             {{votacion.name}}
                                         </button>
-                                    </h2>
+                                    </h4>
                                     <div id="collapse{{votacion.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{votacion.id}}" data-bs-parent="#accordionFlushGeneral1">
                                         <div class="accordion-body">
                                             <p>Descripción: {{votacion.desc}}</p>
@@ -83,7 +83,7 @@
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{votacion.id}}" href="/booth/{{votacion.id}}" aria-expanded="false" aria-controls="collapse{{votacion.id}}">
                                             {{votacion.name}}
                                         </button>
-                                    </h2>
+                                    </h4>
                                     <div id="collapse{{votacion.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{votacion.id}}" data-bs-parent="#accordionFlushGeneral2">
                                         <div class="accordion-body">
                                             <p>Descripción: {{votacion.desc}}</p>
@@ -110,7 +110,7 @@
 {% if not usuario.id %}
 <div class="alert alert-danger" id="divAlert" role="alert">
     Parece que no has iniciado sesión
-    <button class="btn btn-primary" id="alertButton">Login</button>  
+    <a tpye=button href="/admin" class="btn btn-primary" id="alertButton">Login</a>  
 </div>
 {% endif %}
 {% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+    <link type="text/css" rel="stylesheet"
+        href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet"
+        href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+    <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
+{% endblock %}
+
+
+{% block vue_app %}
+<div id="app-inicio">
+{% endblock %}
+
+{% block content %}
+<h1>¡Bienvenidos a Decide!</h1>
+<div class="row mt-5">
+    <div class="col-6">
+        <b-card class="mb-2">
+        <b-card-text class="mb-4">
+            <h3>Realiza acciones de administración</h3>
+        </b-card-text>
+        <div class="mb-4">
+            <b-button href="{% url 'admin:index' %}" variant="primary">Administración</b-button>
+            <b-button href="{% url 'doc' %}" variant="primary">Documentación</b-button>
+        </div>
+        </b-card>
+    </div>
+    <div class="col-6">
+        <b-card class="mb-2">
+        <b-card-text class="mb-4">
+            <h3>Accede al contenido de Decide</h3>
+        </b-card-text>
+        <div class="mb-4">
+            <b-button href="{% url 'doc' %}" variant="primary">Cabina</b-button>
+            <b-button href="{% url 'visualizer' %}" variant="primary">Visualización</b-button>
+        </div>
+        </b-card>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block extrabody %}
+    <!-- needed to generate big random -->
+    <script src="{% static "crypto/sjcl.js" %}"></script>
+
+    <!-- Big integer -->
+    <script src="{% static "crypto/jsbn.js" %}"></script>
+    <script src="{% static "crypto/jsbn2.js" %}"></script>
+    <script src="{% static "crypto/bigint.js" %}"></script>
+
+    <!-- ElGamal encrypt -->
+    <script src="{% static "crypto/elgamal.js" %}"></script>
+
+    <!-- Vuejs -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#app-inicio',
+            data: {
+                signup: true
+            }
+        })
+    </script>
+</body>
+{% endblock %}

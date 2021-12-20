@@ -2,26 +2,22 @@
 {% load i18n static %}
 
 {% block extrahead %}
-    <link type="text/css" rel="stylesheet"
-         href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet"
-         href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
-    <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+<link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
 {% endblock %}
 
-{% block content %}
-    <div id="app-visualizer">
-        <!-- Navbar -->
-        <b-navbar type="dark" variant="secondary">
-            <b-navbar-brand tag="h1">Decide</b-navbar-brand>
-        </b-navbar>
-        <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
+{% block vue_app %}
+<div id="app-visualizer">
+    {% endblock %}
 
+    {% block content %}
         <div>
             <b-button v-b-toggle.collapse-2 variant="primary">Resultados</b-button>
             <b-collapse id="collapse-2" class="mt-2">
               <b-card>
-                <p class="card-text">        <div class="voting container">
+                <p class="card-text">        
+                <div class="voting container">
                     <h2 v-if="!voting.start_date">Votación no comenzada</h2>
                     <h2 v-else-if="!voting.end_date">Votación en curso</h2>
                     <div v-else>
@@ -114,27 +110,25 @@
               </b-card>
             </b-collapse>
           </div>
-
-         
-        
     </div>
 {% endblock %}
 
 {% block extrabody %}
-    <!-- Vuejs -->
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<!-- Vuejs -->
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 
-    <script>
-        var voting = {{voting|safe}};
-        var app = new Vue({
-            delimiters: ['[[', ']]'],
-            el: '#app-visualizer',
-            data: {
-                voting: voting
-            }
-        })
-    </script>
+<script>
+    var voting = {{voting|safe}};
+    var app = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app-visualizer',
+        data: {
+            voting: voting,
+            signup: true,
+        }
+    })
+</script>
 </body>
 {% endblock %}

@@ -214,10 +214,10 @@ class VotingTestCase(BaseTestCase):
         self.login()
         data = {'question_desc': 'Example','question_ratio':'SI/NO'}
         response = self.client.post('/voting/dichotomy', data)
-        self.assertEqual(response.status_code, 301)     
+        self.assertEqual(response.status_code, 301)
         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
-                                       
+
         data = {'name': 'V1','desc':'Descrip','question':'Example','auths':a}
         response = self.client.put('/admin/voting/voting/add', data)
         self.assertEqual(response.status_code, 301)
@@ -249,4 +249,4 @@ class VotingTestCase(BaseTestCase):
         orderquestion = OrderQuestion(desc="Descripción de ejemplo")
         orderquestion.save()
 
-        self.assertTrue(OrderQuestion.objects.filter(desc="Descripción de ejemplo").exists())    
+        self.assertTrue(OrderQuestion.objects.filter(desc="Descripción de ejemplo").exists())

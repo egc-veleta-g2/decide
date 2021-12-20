@@ -30,7 +30,7 @@ def tally(ModelAdmin, request, queryset):
 
 class QuestionOptionInline(admin.TabularInline):
     model = QuestionOption
-
+   
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionOptionInline]

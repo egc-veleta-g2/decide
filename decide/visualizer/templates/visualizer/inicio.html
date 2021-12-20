@@ -7,8 +7,10 @@
 <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
 {% endblock %}
 
+{% block vue_app %}
+<div id="app-visualizer-inicio">
+{% endblock %}
 {% block content %}
-<div id="app-visualizer-inicio"></div>
 <h1>¡Bienvenidos a los resultados de las votaciones en Decide!</h1>
 <div class="mt-5">
 <table class="table" aria-describedby="votingsInfo">

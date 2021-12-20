@@ -1,15 +1,8 @@
+import time
+
+from django.conf import settings
 from django.test import TestCase
 import visualizer.views as vw
-
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-
-from django.utils import timezone
-from base.tests import BaseTestCase
-from voting.tests import VotingTestCase
-from mixnet.models import Auth
-from voting.models import Voting, Question, QuestionOption
-from django.conf import settings
-import time
 
 # Create your tests here.
 

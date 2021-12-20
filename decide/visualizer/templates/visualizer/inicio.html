@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+<link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
+{% endblock %}
+
+{% block content %}
+<div id="app-visualizer-inicio"></div>
+<h1>¡Bienvenidos a los resultados de las votaciones en Decide!</h1>
+<div class="mt-5">
+<table class="table" aria-describedby="votingsInfo">
+    <thead>
+      <tr>
+        <th scope="col">Votación</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Fecha de inicio</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for votacion in vot_finalizadas %}
+      <tr>
+        <td><a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a></td>
+        <td>{{votacion.desc}}</td>
+        <td>{{votacion.start_date}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+{% endblock %}
+
+{% block extrabody %}
+<!-- needed to generate big random -->
+<script src="{% static "crypto/sjcl.js" %}"></script>
+
+<!-- Big integer -->
+<script src="{% static "crypto/jsbn.js" %}"></script>
+<script src="{% static "crypto/jsbn2.js" %}"></script>
+<script src="{% static "crypto/bigint.js" %}"></script>
+
+<!-- ElGamal encrypt -->
+<script src="{% static "crypto/elgamal.js" %}"></script>
+
+<!-- Vuejs -->
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+<script>
+    var app = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app-visualizer-inicio',
+        data: {
+            signup: true
+        }
+    })
+</script>
+</body>
+{% endblock %}

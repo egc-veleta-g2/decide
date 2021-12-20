@@ -1,0 +1,14 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+        <h1>
+            Elige el tipo de pregunta que quiera crear
+        </h1>
+
+    <section>
+        <form id="form" method="post" action=''>{% csrf_token %}
+            {{form}}
+            <input type='submit' value='Crear' />
+        </form>
+    </section>
+
+{% endblock %}

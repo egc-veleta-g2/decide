@@ -11,8 +11,7 @@ class Question(models.Model):
     desc = models.TextField()
 
     def __str__(self):
-        return self.desc
-         
+        return self.desc       
 #Añadida clase Order
 
 class OrderQuestion(models.Model):

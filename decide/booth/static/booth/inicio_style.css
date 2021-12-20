@@ -1,26 +1,26 @@
 #divNoVotado {
-    padding: 20px;
+  padding: 20px;
 }
 
 #divVotado {
-    padding: 20px;
+  padding: 20px;
 }
 
 #divAlert {
-    border-radius: 10px;
-    width: 20%;
-    text-align: center;
-    margin: auto;
-    margin-top: 15%;
+  border-radius: 10px;
+  width: 20%;
+  text-align: center;
+  margin: auto;
+  margin-top: 15%;
 }
 
 #alertButton {
-    padding: 5px 15px;
-    margin-top: 2%;
-    text-decoration: none;
-    color: #fff;
+  padding: 5px 15px;
+  margin-top: 2%;
+  text-decoration: none;
+  color: #fff;
 }
 
 .fa-vote-yea {
-    padding-left: 10px;
+  padding-left: 10px;
 }

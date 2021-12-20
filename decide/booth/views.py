@@ -38,7 +38,7 @@ class BoothView(TemplateView):
 class InicioView(TemplateView):
     template_name = 'booth/inicio.html'
 
-    
+
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['listVotados']= self.get_queryset()[0]
@@ -47,7 +47,7 @@ class InicioView(TemplateView):
 
         return context
 
-    
+
     def get_queryset(self):
         votaciones = Voting.objects.all()
         mis_votos = Vote.objects.filter(voter_id= self.request.user.id)
@@ -58,7 +58,7 @@ class InicioView(TemplateView):
             for voto in mis_votos:
                 if voto.voting_id == v.id:
                     list_votados.add(v)
-        
+
         list_noVotados = []
         for v in votaciones:
             for c in mis_censos:

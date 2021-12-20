@@ -15,34 +15,108 @@
         <b-navbar type="dark" variant="secondary">
             <b-navbar-brand tag="h1">Decide</b-navbar-brand>
         </b-navbar>
+        <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
 
-        <div class="voting container">
-            <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
+        <div>
+            <b-button v-b-toggle.collapse-2 variant="primary">Resultados</b-button>
+            <b-collapse id="collapse-2" class="mt-2">
+              <b-card>
+                <p class="card-text">        <div class="voting container">
+                    <h2 v-if="!voting.start_date">Votación no comenzada</h2>
+                    <h2 v-else-if="!voting.end_date">Votación en curso</h2>
+                    <div v-else>
+                        <h2 class="heading">Resultados:</h2>
+        
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Opción</th>
+                                    <th>Puntuación</th>
+                                    <th>Votos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="opt in voting.postproc" :key="opt.number">
+                                    <th>[[opt.option]]</th>
+                                    <td>[[opt.postproc]]</td>
+                                    <td class="text-muted">[[opt.votes]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div></p>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+          </div>
 
-            <h2 v-if="!voting.start_date">Votación no comenzada</h2>
-            <h2 v-else-if="!voting.end_date">Votación en curso</h2>
-            <div v-else>
-                <h2 class="heading">Resultados:</h2>
-
-                <table class="table table-bordered table-striped">
-                    <thead>
+        <div>
+            <b-button v-b-toggle.collapse-1 variant="primary">Más información</b-button>
+            <b-collapse id="collapse-1" class="mt-2">
+              <b-card>
+                <p class="card-text"></p>
+                <div>
+                    <h2 v-if="!voting.start_date">Votación no comenzada</h2>
+                    <h2 v-else-if="!voting.end_date">Votación en curso</h2>
+                    <div v-else >
+                    <h2 id="titulo_metricas">Métricas</h3>
+                    <table class="estadisticas_votacion" id="metricas">
                         <tr>
-                            <th>Opción</th>
-                            <th>Puntuación</th>
-                            <th>Votos</th>
+                            <td>Descripcion votacion</td>
+                            <td>[[ voting.desc ]]</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="opt in voting.postproc" :key="opt.number">
-                            <th>[[opt.option]]</th>
-                            <td>[[opt.postproc]]</td>
-                            <td class="text-muted">[[opt.votes]]</td>
+                        <tr>
+                          <td>Fecha inicio</td>
+                          <td>{{inicio}}</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <tr>
+                            <td>Fecha fin</td>
+                            <td>{{fin}}</td>
+                        </tr>
+                        <tr>
+                            <td>Duración total de la votación</td>
+                            <td>{{duracion}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad de votos</td>
+                            <td>{{cantidad_votos}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad de votantes</td>
+                            <td>{{cantidad_votantes}}</td>
+                        </tr>
+                        <tr>
+                            <td>Porcentaje de abstención</td>
+                            <td>
+                            </div>
+                            <template>
+                                <div>
+                                  <b-progress class="mt-2" :max="max" show-value>
+                                    <b-progress-bar :value={{abstencion}} variant="danger"></b-progress-bar>
+                                  </b-progress>
+                                </div>
+                              </template>
+                              
+                              <script>
+                                export default {
+                                  data() {
+                                    return {
+                                      max: 100
+                                    }
+                                  }
+                                }
+                              </script>
+                            </td>
+                        </tr>
+                      </table>
+                </div>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+          </div>
 
-        </div>
+         
+        
     </div>
 {% endblock %}
 

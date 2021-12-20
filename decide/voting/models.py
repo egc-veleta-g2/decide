@@ -44,7 +44,8 @@ class Voting(models.Model):
     name = models.CharField(max_length=200)
     desc = models.TextField(blank=True, null=True)
     question = models.ForeignKey(Question, related_name='voting', on_delete=models.CASCADE)
-
+    
+    order_question = models.ForeignKey(OrderQuestion, related_name='voting', on_delete=models.CASCADE, null= True, blank=True)
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
 

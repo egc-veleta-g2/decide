@@ -39,7 +39,8 @@ for(let i=0; i< votos.length ; i++){
 }
 
 /*global Chart*/
-new Chart(ctx1, {
+
+var config1 = new Chart(ctx1, {
     type: "bar",
     data: {
         datasets: [{
@@ -82,8 +83,7 @@ new Chart(ctx1, {
     }
 });
 
-/*global Chart*/
-new Chart(ctx2, {
+var config2 = new Chart(ctx2, {
     type: "pie",
     data: {
         datasets: [{

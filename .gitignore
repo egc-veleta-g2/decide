@@ -101,3 +101,9 @@ ENV/
 .mypy_cache/
 
 .vagrant
+
+.docker/
+
+..github/
+
+.decide/decide/settings.py

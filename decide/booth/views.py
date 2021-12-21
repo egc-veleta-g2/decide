@@ -4,7 +4,6 @@ from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
-from voting.models import Voting
 from base import mods
 from store.models import Vote
 from voting.models import Voting

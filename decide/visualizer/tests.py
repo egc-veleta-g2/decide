@@ -1,12 +1,12 @@
 import time
-import json
+# import json
 
 from django.conf import settings
 from base.tests import BaseTestCase
-from django.urls import reverse
+# from django.urls import reverse
 import visualizer.views as vw
-from voting.models import Voting
-from base import mods
+# from voting.models import Voting
+# from base import mods
 
 
 class VisualizerTestCase(BaseTestCase):

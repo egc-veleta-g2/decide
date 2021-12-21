@@ -6,8 +6,8 @@ class Vote(models.Model):
     voting_id = models.PositiveIntegerField()
     voter_id = models.PositiveIntegerField()
 
-    a = BigBigField()
-    b = BigBigField()
+    a = models.TextField()
+    b = models.TextField()
 
     voted = models.DateTimeField(auto_now=True)
 

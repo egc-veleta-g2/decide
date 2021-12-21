@@ -8,6 +8,8 @@ from base.models import Auth, Key
 
 
 class Question(models.Model):
+    ANSWER_TYPES = ((1, "Unique option"), (2, "Rank order"))
+    option_types = models.PositiveIntegerField(choices=ANSWER_TYPES, default="1")
     desc = models.TextField()
 
     def __str__(self):

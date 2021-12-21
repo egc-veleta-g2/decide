@@ -58,12 +58,17 @@ class StoreView(generics.ListAPIView):
         if perms.status_code == 401:
             return Response({}, status=status.HTTP_401_UNAUTHORIZED)
 
-        a = vote.get("a")
-        b = vote.get("b")
+        a = ""
+        b = ""
+        print(vote)
+        for opt in vote:
+            a = a + opt['a'] + ','
+            b = b + opt['b'] + ','
 
-        defs = { "a": a, "b": b }
-        v, _ = Vote.objects.get_or_create(voting_id=vid, voter_id=uid,
-                                          defaults=defs)
+        a = a[:-1]
+        b = b[:-1]
+
+        v, _ = Vote.objects.get_or_create(voting_id=vid, voter_id=uid)
         v.a = a
         v.b = b
 

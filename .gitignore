@@ -102,8 +102,8 @@ ENV/
 
 .vagrant
 
-.docker/
+docker/
 
-..github/
+.github/
 
-.decide/decide/settings.py
+decide/decide/settings.py

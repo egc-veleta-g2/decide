@@ -2,65 +2,157 @@
 {% load i18n static %}
 
 {% block extrahead %}
-    <link type="text/css" rel="stylesheet"
-         href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet"
-         href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
-    <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+<link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
 {% endblock %}
 
-{% block content %}
-    <div id="app-visualizer">
-        <!-- Navbar -->
-        <b-navbar type="dark" variant="secondary">
-            <b-navbar-brand tag="h1">Decide</b-navbar-brand>
-        </b-navbar>
+{% block vue_app %}
+<div id="app-visualizer">
+    {% endblock %}
 
-        <div class="voting container">
-            <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
+    {% block content %}
+        <div>
+            <b-button v-b-toggle.collapse-2 variant="primary">Resultados</b-button>
+            <b-collapse id="collapse-2" class="mt-2">
+              <b-card>
+                <p class="card-text">        
+                <div class="voting container">
+                    <h2 v-if="!voting.start_date">Votación no comenzada</h2>
+                    <h2 v-else-if="!voting.end_date">Votación en curso</h2>
+                    <div v-else>
+                        <h2 class="heading">Resultados:</h2>
+        
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Opción</th>
+                                    <th>Puntuación</th>
+                                    <th>Votos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="opt in voting.postproc" :key="opt.number">
+                                    <th>[[opt.option]]</th>
+                                    <td>[[opt.postproc]]</td>
+                                    <td class="text-muted">[[opt.votes]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div></p>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+          </div>
 
-            <h2 v-if="!voting.start_date">Votación no comenzada</h2>
-            <h2 v-else-if="!voting.end_date">Votación en curso</h2>
-            <div v-else>
-                <h2 class="heading">Resultados:</h2>
-
-                <table class="table table-bordered table-striped">
-                    <thead>
+        <div>
+            <b-button v-b-toggle.collapse-1 variant="primary">Más información</b-button>
+            <b-collapse id="collapse-1" class="mt-2">
+              <b-card>
+                <p class="card-text"></p>
+                <div>
+                    <h2 v-if="!voting.start_date">Votación no comenzada</h2>
+                    <h2 v-else-if="!voting.end_date">Votación en curso</h2>
+                    <div v-else >
+                    <h2 id="titulo_metricas">Métricas</h3>
+                    <table class="estadisticas_votacion" id="metricas">
                         <tr>
-                            <th>Opción</th>
-                            <th>Puntuación</th>
-                            <th>Votos</th>
+                            <td>Descripcion votacion</td>
+                            <td>[[ voting.desc ]]</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="opt in voting.postproc" :key="opt.number">
-                            <th>[[opt.option]]</th>
-                            <td>[[opt.postproc]]</td>
-                            <td class="text-muted">[[opt.votes]]</td>
+                        <tr>
+                          <td>Fecha inicio</td>
+                          <td>{{inicio}}</td>
                         </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                            <td>Fecha fin</td>
+                            <td>{{fin}}</td>
+                        </tr>
+                        <tr>
+                            <td>Duración total de la votación</td>
+                            <td>{{duracion}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad de votos</td>
+                            <td>{{cantidad_votos}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad de votantes</td>
+                            <td>{{cantidad_votantes}}</td>
+                        </tr>
+                        <tr>
+                            <td>Porcentaje de abstención</td>
+                            <td>
+                            </div>
+                            <template>
+                                <div>
+                                  <b-progress class="mt-2" :max="max" show-value>
+                                    <b-progress-bar :value={{abstencion}} variant="danger"></b-progress-bar>
+                                  </b-progress>
+                                </div>
+                              </template>
+                              
+                              <script>
+                                export default {
+                                  data() {
+                                    return {
+                                      max: 100
+                                    }
+                                  }
+                                }
+                              </script>
+                            </td>
+                        </tr>
+                      </table>
+                </div>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+          </div>
+          <br>
+          <div aria-labelledby="chartsInfo" class="row my-5 text-left">
+                <input id="votacion" type="hidden" value="{{voting}}">
+                <div class="col-lg-6">
+                    <b-card class="mb-2">
+                        <div class="mb-4">
+                            <canvas id="bar-resultados" aria-label="Diagrama con resultados"></canvas>
+                        </div>
+                    </b-card>
+                </div>
+                <div class="col-lg-6">
+                    <b-card class="mb-2">
+                        <div class="mb-4">
+                            <canvas id="pie-porcentaje" aria-label="Diagrama con porcentaje de voto en cada opción"></canvas>
+                        </div>
+                    </b-card>
+                </div>
             </div>
-
-        </div>
     </div>
+</div>
 {% endblock %}
 
 {% block extrabody %}
-    <!-- Vuejs -->
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<!-- Vuejs -->
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 
-    <script>
-        var voting = {{voting|safe}};
-        var app = new Vue({
-            delimiters: ['[[', ']]'],
-            el: '#app-visualizer',
-            data: {
-                voting: voting
-            }
-        })
-    </script>
+<script>
+    var voting = {{voting|safe}};
+    var app = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app-visualizer',
+        data: {
+            voting: voting,
+            signup: true,
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{% static 'js/grafica_visualizer.js' %}"></script>
+
 </body>
 {% endblock %}

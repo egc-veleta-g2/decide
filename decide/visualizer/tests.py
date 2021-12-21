@@ -1,7 +1,7 @@
 import time
 # import json
 
-from django.conf import settings
+#from django.conf import settings
 from base.tests import BaseTestCase
 # from django.urls import reverse
 import visualizer.views as vw
@@ -37,10 +37,6 @@ class VisualizerTestCase(BaseTestCase):
     #     self.assertEqual(response.context['voting'], json.dumps(mods.get('voting', params={'id': 1})[0]))
 
     def test_date_comparer(self):
-        """
-        Comprueba que la función DateComparer del views del
-        módulo visualizer funciona correctamente.
-        """
         fecha1 = "2021-12-18T10:48:22.969419Z"
         fecha2 = "2021-12-18T11:07:51.009086Z"
         resultado = "0 días, 0 horas, 19 minutos y 28 segundos "

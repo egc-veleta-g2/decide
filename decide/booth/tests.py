@@ -32,7 +32,6 @@ class BoothTestCase(BaseTestCase):
 
         return v
 
-    @staticmethod
     def create_voting(self):
         q = Question(desc='test question')
         q.save()
@@ -49,7 +48,6 @@ class BoothTestCase(BaseTestCase):
 
         return v
 
-    @staticmethod
     def create_voters(self, v):
         for i in range(100):
             u, _ = User.objects.get_or_create(username='testvoter{}'.format(i))
@@ -58,7 +56,6 @@ class BoothTestCase(BaseTestCase):
             c = Census(voter_id=u.id, voting_id=v.id)
             c.save()
 
-    @staticmethod
     def get_or_create_user(self, pk):
         user, _ = User.objects.get_or_create(pk=pk)
         user.username = 'user{}'.format(pk)

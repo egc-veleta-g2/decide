@@ -106,6 +106,6 @@ docker-settings.py
 docker-compose.yml
 Dockerfile
 
-.github/
+django.yml
 
-settings.py
+decide/decide/settings.py

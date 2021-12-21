@@ -29,3 +29,17 @@ class BoothView(TemplateView):
         context['KEYBITS'] = settings.KEYBITS
 
         return context
+
+class BoothUrlView(TemplateView):
+    template_name = 'booth/url.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vid = kwargs.get('voting_url')
+
+        print(vid)
+
+        
+
+        return context
+

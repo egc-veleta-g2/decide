@@ -45,7 +45,7 @@ class VisualizerView(TemplateView):
             raise Http404
             
         return context
-    
+
 def dateComparer(start_date,end_date):
 
     #2021-12-18T11:07:51.009086Z

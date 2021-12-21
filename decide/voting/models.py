@@ -6,45 +6,44 @@ from django.dispatch import receiver
 from base import mods
 from base.models import Auth, Key
 
+class TypeVoting(models.Model):
+    name = models.CharField(max_length=200, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
 
 class Question(models.Model):
-    desc = models.TextField()
+    ANSWER_TYPES = ((1, "Unique option"), (2,"Rank order scale"))
+    option_types = models.PositiveIntegerField(choices=ANSWER_TYPES, default="1")
+    desc = models.TextField(unique=True)
 
     def __str__(self):
         return self.desc
-#Añadida clase Order
-class OrderQuestion(models.Model):
-    desc = models.TextField()
-    PREFERENCES = (
-        ('B', '1'),
-        ('M', '2'),
-        ('A', '3'),
-    )
-    preference = models.CharField(max_length=1, choices=PREFERENCES, blank=True)
-
-    def __str__(self):
-        return self.desc
-
 class QuestionOption(models.Model):
     question = models.ForeignKey(Question, related_name='options', on_delete=models.CASCADE)
     number = models.PositiveIntegerField(blank=True, null=True)
-    option = models.TextField()
+    option = models.CharField(max_length=200)
+
     def save(self):
+
         if not self.number:
             self.number = self.question.options.count() + 2
         return super().save()
 
+
     def __str__(self):
         return '{} ({})'.format(self.option, self.number)
 
-
 class Voting(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique = True)
     desc = models.TextField(blank=True, null=True)
-    question = models.ForeignKey(Question, related_name='voting', on_delete=models.CASCADE)
-    order_question = models.ForeignKey(OrderQuestion, related_name='voting', on_delete=models.CASCADE, null= True, blank=True)
+    question =  models.ManyToManyField(Question, related_name='voting')
+    points = models.PositiveIntegerField(default="1")
+
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
+
+    started_by = models.CharField(max_length=200, blank=True, null = True)
 
     pub_key = models.OneToOneField(Key, related_name='voting', blank=True, null=True, on_delete=models.SET_NULL)
     auths = models.ManyToManyField(Auth, related_name='votings')

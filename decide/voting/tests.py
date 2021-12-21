@@ -13,7 +13,7 @@ from census.models import Census
 from mixnet.mixcrypt import ElGamal
 from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
-from voting.models import Voting, Question, QuestionOption, OrderQuestion
+from voting.models import Voting, Question, QuestionOption
 
 
 class VotingTestCase(BaseTestCase):
@@ -245,8 +245,8 @@ class VotingTestCase(BaseTestCase):
 
 # tests de order question
 
-    def test_create_orderquestion(self):
-        orderquestion = OrderQuestion(desc="Descripción de ejemplo")
-        orderquestion.save()
+    # def test_create_orderquestion(self):
+    #     orderquestion = OrderQuestion(desc="Descripción de ejemplo")
+    #     orderquestion.save()
 
-        self.assertTrue(OrderQuestion.objects.filter(desc="Descripción de ejemplo").exists())
+    #     self.assertTrue(OrderQuestion.objects.filter(desc="Descripción de ejemplo").exists())

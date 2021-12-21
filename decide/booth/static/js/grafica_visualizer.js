@@ -38,7 +38,7 @@ for(let i=0; i< votos.length ; i++){
     }
 }
 
-/*global Chart*/
+/*global Chart*/ 
 
 var config1 = new Chart(ctx1, {
     type: "bar",

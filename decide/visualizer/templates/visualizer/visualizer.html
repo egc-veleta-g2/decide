@@ -110,7 +110,26 @@
               </b-card>
             </b-collapse>
           </div>
+          <br>
+          <div aria-labelledby="chartsInfo" class="row my-5 text-left">
+                <input id="votacion" type="hidden" value="{{voting}}">
+                <div class="col-lg-6">
+                    <b-card class="mb-2">
+                        <div class="mb-4">
+                            <canvas id="bar-resultados" aria-label="Diagrama con resultados"></canvas>
+                        </div>
+                    </b-card>
+                </div>
+                <div class="col-lg-6">
+                    <b-card class="mb-2">
+                        <div class="mb-4">
+                            <canvas id="pie-porcentaje" aria-label="Diagrama con porcentaje de voto en cada opción"></canvas>
+                        </div>
+                    </b-card>
+                </div>
+            </div>
     </div>
+</div>
 {% endblock %}
 
 {% block extrabody %}
@@ -130,5 +149,10 @@
         }
     })
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{% static 'js/grafica_visualizer.js' %}"></script>
+
 </body>
 {% endblock %}

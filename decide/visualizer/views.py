@@ -43,7 +43,7 @@ class VisualizerView(TemplateView):
             context['fin'] = fechas[2]
         except:
             raise Http404
-
+            
         return context
     
 def dateComparer(start_date,end_date):
@@ -89,3 +89,4 @@ def dateParser(diferencia):
     else:
         horas= 0
     return str(dias) + " días, "+str(horas)+ " horas, "+str(min)+" minutos y "+str(sec)+" segundos "
+  

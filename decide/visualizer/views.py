@@ -42,7 +42,7 @@ class VisualizerView(TemplateView):
             context['inicio'] = fechas[1]
             context['fin'] = fechas[2]
         except:
-            raise Http404  
+            raise Http404
         return context
     
 def dateComparer(start_date,end_date):

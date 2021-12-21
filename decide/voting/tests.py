@@ -3,9 +3,7 @@ import itertools
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.test import TestCase, override_settings
-from rest_framework.test import APIClient
-from rest_framework.test import APITestCase
+from django.test import override_settings
 
 from base import mods
 from base.tests import BaseTestCase
@@ -214,10 +212,10 @@ class VotingTestCase(BaseTestCase):
         self.login()
         data = {'question_desc': 'Example','question_ratio':'SI/NO'}
         response = self.client.post('/voting/dichotomy', data)
-        self.assertEqual(response.status_code, 301)     
+        self.assertEqual(response.status_code, 301)
         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
-                                       
+
         data = {'name': 'V1','desc':'Descrip','question':'Example','auths':a}
         response = self.client.put('/admin/voting/voting/add', data)
         self.assertEqual(response.status_code, 301)
@@ -242,3 +240,4 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
+

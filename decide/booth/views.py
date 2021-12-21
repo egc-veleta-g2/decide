@@ -6,6 +6,10 @@ from django.shortcuts import get_object_or_404
 
 from voting.models import Voting
 from base import mods
+from store.models import Vote
+from voting.models import Voting
+from census.models import Census
+
 
 
 # TODO: check permissions and census
@@ -16,7 +20,7 @@ class BoothView(TemplateView):
         context = super().get_context_data(**kwargs)
         vid = kwargs.get('voting_id', 0)
 
-        context = obtener_votacion(context, vid)
+        context = obtener_votacion(self, context, vid)
         return context
 
 
@@ -51,3 +55,36 @@ def obtener_votacion(self, context, vid):
     context['KEYBITS'] = settings.KEYBITS
 
     return context
+
+
+class InicioView(TemplateView):
+    template_name = 'booth/inicio.html'
+
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['listVotados']= self.get_queryset()[0]
+        context['listNoVotados']= self.get_queryset()[1]
+        context['usuario'] = self.request.user
+
+        return context
+
+
+    def get_queryset(self):
+        votaciones = Voting.objects.all()
+        mis_votos = Vote.objects.filter(voter_id= self.request.user.id)
+        mis_censos = Census.objects.filter(voter_id= self.request.user.id)
+
+        list_votados = set()
+        for v in votaciones:
+            for voto in mis_votos:
+                if voto.voting_id == v.id:
+                    list_votados.add(v)
+
+        list_noVotados = []
+        for v in votaciones:
+            for c in mis_censos:
+                if v.id == c.voting_id and v not in list_votados:
+                    list_noVotados.append(v)
+
+        return list_votados, list_noVotados

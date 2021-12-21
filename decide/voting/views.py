@@ -9,7 +9,7 @@ from .models import Question, QuestionOption, Voting
 from .serializers import SimpleVotingSerializer, VotingSerializer
 from base.perms import UserIsStaff
 from base.models import Auth
-from .forms import dichotomyForm
+from .forms import dichotomyForm, chooseTypeForm
 from django.http.response import HttpResponseRedirect
 
 
@@ -123,3 +123,18 @@ def dichotomyQuestion(request):
             return HttpResponseRedirect('/admin/voting/question')
 
     return render(request, 'dichotomyform.html', {'form': form})
+
+
+def chooseTypeQuestion(request):
+    form = chooseTypeForm()
+    type_ratio = None
+    if request.method == 'POST':
+        form = chooseTypeForm(request.POST)
+        if form.is_valid():
+            type_ratio = form.cleaned_data['type_ratio']
+            if type_ratio == "m":
+                return HttpResponseRedirect('/admin/voting/question/add/')
+            elif type_ratio == "d":
+                return HttpResponseRedirect('/voting/dichotomy')
+    
+    return render(request, 'typeform.html', {'form': form})

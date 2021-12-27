@@ -52,4 +52,4 @@ class TestTestcrearpregunta(StaticLiveServerTestCase):
     actions.move_to_element(element).release().perform()
     dropdown = self.driver.find_element(By.ID, "id_auths")
     dropdown.find_element(By.XPATH, "//option[. = 'http://localhost:8000']").click()
-    self.driver.find_element(By.NAME, "_save").click() 
+    self.driver.find_element(By.NAME, "_save").click()

@@ -102,10 +102,8 @@ ENV/
 
 .vagrant
 
-docker-settings.py
-docker-compose.yml
-Dockerfile
+docker/
 
-django.yml
+.github/
 
 decide/decide/settings.py

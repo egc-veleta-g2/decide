@@ -103,7 +103,5 @@ ENV/
 .vagrant
 
 docker/
-
 .github/
-
 decide/decide/settings.py

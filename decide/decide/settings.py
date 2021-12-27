@@ -70,8 +70,8 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'https://egc-veleta-g2.herokuapp.com'
 
+BASEURL = 'https://egc-veleta.herokuapp.com'
 APIS = {}
 
 MIDDLEWARE = [

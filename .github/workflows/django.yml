@@ -4,10 +4,11 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
-      matrix:
-        pyversion: ['3.5','3.8']
+        matrix:
+          pyversion: ['3.5','3.8']
+    runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:10.8
@@ -34,8 +35,8 @@ jobs:
         pip install -r requirements.txt
         pip install codacy-coverage
     - name: Run migrations
-      run: cd decide;python manage.py migrate
-    - name: Run tests
+      run: cd decide;python manage.py makemigrations; python manage.py migrate
+    - name: Run tests     
       run: cd decide;coverage run --branch --source=. ./manage.py test authentication booth census postproc store visualizer voting --keepdb; coverage xml;
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1.1.0
@@ -44,12 +45,12 @@ jobs:
           coverage-reports: decide/coverage.xml
   deploy:
     needs: build
-    if: ${{github.ref == 'refs/heads/master' }}
+    if: ${{github.ref == 'refs/heads/master'}}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "egc-veleta-g1"
-          heroku_email: "marmolpen3@alum.us.es"
+          heroku_app_name: "egc-veleta"
+          heroku_email: "jesbarsig@alum.us.es"

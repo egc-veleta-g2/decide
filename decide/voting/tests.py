@@ -208,11 +208,33 @@ class VotingTestCase(BaseTestCase):
         self.assertEqual(response.json(), 'Voting already tallied')
 
 
+    def test_delete_voting(self):
+        self.login()
+        #Eliminamos todas las votaciones que hay hasta el momento
+        while Voting.objects.count() !=0:
+            data = {'_selected_action':'1','action': 'delete_selected'}
+            response = self.client.post('/admin/voting/voting/', data)
+            self.assertEqual(response.status_code, 302)
+
+    def test_choose_question(self):
+        self.login()
+        #Comprobamos que la vista de elección de tipo de pregunta funciona correctamente
+        data = {'type_ratio': 'm'}
+        response = self.client.post('/voting/type/', data)
+        self.assertEqual(response.status_code, 302)
+
+        data = {'type_ratio': 'd'}
+        response = self.client.post('/voting/type/', data)
+        self.assertEqual(response.status_code, 302)
+
     def test_dichotomous_voting(self):
         self.login()
+        #Comporbamos que se puede realizar una pregunta dicotómica
         data = {'question_desc': 'Example','question_ratio':'SI/NO'}
         response = self.client.post('/voting/dichotomy', data)
         self.assertEqual(response.status_code, 301)
+
+        #Comporbamos que se puede realizar una votación con la pregunta dicotómica creada anteriormente
         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
 
@@ -220,6 +242,25 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/admin/voting/voting/add', data)
         self.assertEqual(response.status_code, 301)
 
+
+    def test_update_dichotomous_voting(self):
+        self.login()
+        #Comprobamos que la votación con la pregunta dicotómica puede pasar por todos los estados correctamente
+        data = {'_selected_action':'1','action': 'start'}
+        response = self.client.post('/admin/voting/voting/', data)
+        self.assertEqual(response.status_code, 302)
+
+        data = {'_selected_action':'1','action': 'stop'}
+        response = self.client.post('/admin/voting/voting/', data)
+        self.assertEqual(response.status_code, 302)
+
+        data = {'_selected_action':'1','action': 'tally'}
+        response = self.client.post('/admin/voting/voting/', data)
+        self.assertEqual(response.status_code, 302)
+
+        data = {'_selected_action':'1','action': 'delete_selected'}
+        response = self.client.post('/admin/voting/voting/', data)
+        self.assertEqual(response.status_code, 302)
 
     @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
     def test_create_wrong_dichotomy_voting(self):

@@ -242,6 +242,36 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/admin/voting/voting/add', data)
         self.assertEqual(response.status_code, 301)
 
+    def create_dich_voting(self):
+        q = Question(desc='Example')
+        q.save()
+        for i in range(2):
+            if i == 0:
+                o='SI'
+            else:
+                o='NO'
+            opt = QuestionOption(question=q, option=o)
+            opt.save()
+        v = Voting(name='test voting', question=q)
+        v.save()
+
+        a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
+                                          defaults={'me': True, 'name': 'test auth'})
+        a.save()
+        v.auths.add(a)
+
+        return v
+
+    def test_correct_option_question(self):
+        self.login()
+        #En esta función comprobaremos que los diferentes tipos de preguntas dicotómicas se crean con el nombre correcto
+        v = self.create_dich_voting()
+        self.create_voters(v)
+        questSI = QuestionOption.objects.filter(question__desc='Example')[0]
+        questNO = QuestionOption.objects.filter(question__desc='Example')[1]
+        self.assertEqual(questSI.option,'SI')
+        self.assertEqual(questNO.option,'NO')
+
 
     def test_update_dichotomous_voting(self):
         self.login()
@@ -281,4 +311,3 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
-

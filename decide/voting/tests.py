@@ -45,6 +45,22 @@ class VotingTestCase(BaseTestCase):
 
         return v
 
+    def create_quick_poll(self):
+        q = Question(desc='test question')
+        q.save()
+        for i in range(5):
+            opt = QuestionOption(question=q, option='option {}'.format(i+1))
+            opt.save()
+        v = Voting(name='test voting', question=q, poll=True)
+        v.save()
+
+        a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
+                                          defaults={'me': True, 'name': 'test auth'})
+        a.save()
+        v.auths.add(a)
+
+        return v
+
     def create_voters(self, v):
         for i in range(100):
             u, _ = User.objects.get_or_create(username='testvoter{}'.format(i))
@@ -311,3 +327,28 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
+
+
+    def test_complete_quick_poll(self):
+        v = self.create_quick_poll()
+        self.create_voters(v)
+
+        v.create_pubkey()
+        v.start_date = timezone.now()
+        v.save()
+
+
+        clear = self.store_votes(v)
+
+        self.login()  # set token
+        v.tally_votes(self.token)
+
+        tally = v.tally
+        tally.sort()
+        tally = {k: len(list(x)) for k, x in itertools.groupby(tally)}
+
+        for q in v.question.options.all():
+            self.assertEqual(tally.get(q.number, 0), clear.get(q.number, 0))
+
+        for q in v.postproc:
+            self.assertEqual(tally.get(q["number"], 0), q["votes"])

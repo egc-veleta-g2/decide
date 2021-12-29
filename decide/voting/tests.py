@@ -241,7 +241,6 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
 
-
     def test_check_start_voting(self):
         self.login()
         v = self.create_voting()

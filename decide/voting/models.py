@@ -35,6 +35,8 @@ class Voting(models.Model):
 
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
+    url = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    poll = models.BooleanField(default=False, verbose_name="Quick poll")
 
     pub_key = models.OneToOneField(Key, related_name='voting', blank=True, null=True, on_delete=models.SET_NULL)
     auths = models.ManyToManyField(Auth, related_name='votings')

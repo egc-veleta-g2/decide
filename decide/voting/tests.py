@@ -12,7 +12,7 @@ from mixnet.mixcrypt import ElGamal
 from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
-
+from store.models import Vote
 
 class VotingTestCase(BaseTestCase):
 
@@ -96,6 +96,17 @@ class VotingTestCase(BaseTestCase):
                 voter = voters.pop()
                 mods.post('store', json=data)
         return clear
+
+    def store_concrete_vote(self, v, voter):
+        a, b = self.encrypt_msg(v.question.options.all()[0].number, v)
+        data = {
+            'voting': v.id,
+            'voter': voter.voter_id,
+            'vote': { 'a': a, 'b': b },
+        }
+        user = self.get_or_create_user(voter.voter_id)
+        self.login(user=user.username)
+        mods.post('store', json=data)
 
     def test_complete_voting(self):
         v = self.create_voting()
@@ -352,3 +363,52 @@ class VotingTestCase(BaseTestCase):
 
         for q in v.postproc:
             self.assertEqual(tally.get(q["number"], 0), q["votes"])
+
+
+    def test_voting_list_undone(self):
+        v = self.create_voting()
+        self.create_voters(v)
+
+        usuario = list(Census.objects.filter(voting_id=v.id))[0].voter_id
+
+        votaciones = Voting.objects.all()
+        mis_votos = Vote.objects.filter(voter_id=usuario)
+        mis_censos = Census.objects.filter(voter_id=usuario)
+
+        list_votados = set()
+        for v in votaciones:
+            for voto in mis_votos:
+                if voto.voting_id == v.id:
+                    list_votados.add(v)
+
+        list_noVotados = []
+        for v in votaciones:
+            for c in mis_censos:
+                if v.id == c.voting_id and v not in list_votados:
+                    list_noVotados.append(v)
+
+        self.assertEquals(list_noVotados[0], v)
+
+
+    def test_voting_list_done(self):
+        v = self.create_voting()
+        self.create_voters(v)
+
+        v.create_pubkey()
+        v.start_date = timezone.now()
+        v.save()
+
+        usuario = list(Census.objects.filter(voting_id=v.id))[0]
+
+        self.store_concrete_vote(v, usuario)
+
+        votaciones = Voting.objects.all()
+        mis_votos = Vote.objects.filter(voter_id=usuario.voter_id)
+
+        list_votados = set()
+        for v in votaciones:
+            for voto in mis_votos:
+                if voto.voting_id == v.id:
+                    list_votados.add(v)
+
+        self.assertEquals(list(list_votados)[0], v)

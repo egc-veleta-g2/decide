@@ -420,3 +420,54 @@ class VotingTestCase(BaseTestCase):
                     list_votados.add(v)
 
         self.assertEquals(list(list_votados)[0], v)
+
+    def test_quick_poll_list_undone(self):
+        v = self.create_quick_poll()
+        self.create_voters(v)
+
+        usuario = list(Census.objects.filter(voting_id=v.id))[0].voter_id
+
+        votaciones = Voting.objects.all()
+        mis_votos = Vote.objects.filter(voter_id=usuario)
+        mis_censos = Census.objects.filter(voter_id=usuario)
+
+        list_votados = set()
+        for v in votaciones:
+            for voto in mis_votos:
+                if voto.voting_id == v.id:
+                    list_votados.add(v)
+
+        list_noVotados = []
+        for v in votaciones:
+            if v.poll == True and v not in list_votados:
+                list_noVotados.append(v)
+            else:
+                for c in mis_censos:
+                    if v.id == c.voting_id and v not in list_votados:
+                        list_noVotados.append(v)
+
+        self.assertEquals(list_noVotados[0], v)
+
+
+    def test_quick_poll_list_done(self):
+        v = self.create_quick_poll()
+        self.create_voters(v)
+
+        v.create_pubkey()
+        v.start_date = timezone.now()
+        v.save()
+
+        usuario = list(Census.objects.filter(voting_id=v.id))[0]
+
+        self.store_concrete_vote(v, usuario)
+
+        votaciones = Voting.objects.all()
+        mis_votos = Vote.objects.filter(voter_id=usuario.voter_id)
+
+        list_votados = set()
+        for v in votaciones:
+            for voto in mis_votos:
+                if voto.voting_id == v.id:
+                    list_votados.add(v)
+
+        self.assertEquals(list(list_votados)[0], v)

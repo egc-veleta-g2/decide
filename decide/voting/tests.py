@@ -241,3 +241,12 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
 
+
+    def test_check_start_voting(self):
+        self.login()
+        v = self.create_voting()
+        data = {'_selected_action':'1','action': 'reset'}
+        self.client.post('/admin/voting/voting/', data)
+        # Comprobamos que las fechas de inicio y fin de la votación han sido reseteadas
+        self.assertEqual(Voting.objects.filter(id=v.id)[0].start_date, None)
+        self.assertEqual(Voting.objects.filter(id=v.id)[0].end_date, None)

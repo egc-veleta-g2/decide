@@ -61,9 +61,8 @@ class StoreView(generics.ListAPIView):
         a = ""
         b = ""
         print(vote)
-        for opt in vote:
-            a = a + opt['a'] + ','
-            b = b + opt['b'] + ','
+        a = a + str(vote['a']) + ','
+        b = b + str(vote['b']) + ','
 
         a = a[:-1]
         b = b[:-1]

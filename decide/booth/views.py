@@ -82,8 +82,11 @@ class InicioView(TemplateView):
 
         list_noVotados = []
         for v in votaciones:
-            for c in mis_censos:
-                if v.id == c.voting_id and v not in list_votados:
-                    list_noVotados.append(v)
+            if v.poll == True and v not in list_votados:
+                list_noVotados.append(v)
+            else:
+                for c in mis_censos:
+                    if v.id == c.voting_id and v not in list_votados:
+                        list_noVotados.append(v)
 
         return list_votados, list_noVotados

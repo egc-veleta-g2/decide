@@ -14,7 +14,7 @@ from mixnet.mixcrypt import ElGamal
 from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
-
+from django.db.utils import IntegrityError
 
 class VotingTestCase(BaseTestCase):
 
@@ -32,7 +32,7 @@ class VotingTestCase(BaseTestCase):
         return k.encrypt(msg)
 
     def create_voting(self):
-        q = Question(desc='test question')
+        q = Question(desc='test question', option_types=1)
         q.save()
         for i in range(5):
             opt = QuestionOption(question=q, option='option {}'.format(i+1))
@@ -214,10 +214,10 @@ class VotingTestCase(BaseTestCase):
         self.login()
         data = {'question_desc': 'Example','question_ratio':'SI/NO'}
         response = self.client.post('/voting/dichotomy', data)
-        self.assertEqual(response.status_code, 301)     
+        self.assertEqual(response.status_code, 301)
         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
-                                       
+
         data = {'name': 'V1','desc':'Descrip','question':'Example','auths':a}
         response = self.client.put('/admin/voting/voting/add', data)
         self.assertEqual(response.status_code, 301)
@@ -242,3 +242,43 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
+
+
+# método auxiliar
+
+    # def create_voting_prueba(self):
+    #         q = Question(desc='test question 2', option_types= 1)
+    #         q.save()
+    #         for i in range(5):
+    #             opt = QuestionOption(question=q, option='option {}'.format(i + 1))
+    #             opt.save()
+    #         v = Voting(name='test voting 2')
+
+    #         v.save()
+    #         v.question.add(q)
+    #         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
+    #                                       defaults={'me': True, 'name': 'test auth'})
+    #         a.save()
+    #         v.auths.add(a)
+
+    #         return v
+
+
+
+         #PRUEBAS UNITARIAS
+
+
+    # Caso positivo: se crean dos votaciones con nombres diferentes y se cumple correctamente
+
+    # def test_duplicate_voting_name_positive(self):
+    #     v1 = self.create_voting()
+    #     v2 = self.create_voting_prueba()
+    #     self.assertNotEqual(v1, v2)
+
+    # Caso negativo: se crean dos votaciones con nombres repetidos y salta la excepción
+
+    # def test_duplicate_voting_name_negative(self):
+    #     v1 = self.create_voting()
+    #     with self.assertRaises(Exception) as raised:
+    #         v2 = self.create_voting()
+    #     self.assertEqual(IntegrityError, type(raised.exception))

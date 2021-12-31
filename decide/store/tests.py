@@ -79,15 +79,15 @@ class StoreTextCase(BaseTestCase):
 
     def test_store_vote(self):
         VOTING_PK = 345
-        CTE_A = 96
-        CTE_B = 184
+        # CTE_A = 96
+        # CTE_B = 184
         census = Census(voting_id=VOTING_PK, voter_id=1)
         census.save()
         self.gen_voting(VOTING_PK)
         data = {
             "voting": VOTING_PK,
             "voter": 1,
-            "vote": { "a": CTE_A, "b": CTE_B }
+            "vote": { "a": '96', "b": '184' }
         }
         user = self.get_or_create_user(1)
         self.login(user=user.username)
@@ -97,8 +97,8 @@ class StoreTextCase(BaseTestCase):
         self.assertEqual(Vote.objects.count(), 1)
         self.assertEqual(Vote.objects.first().voting_id, VOTING_PK)
         self.assertEqual(Vote.objects.first().voter_id, 1)
-        self.assertEqual(Vote.objects.first().a, CTE_A)
-        self.assertEqual(Vote.objects.first().b, CTE_B)
+        self.assertEqual(Vote.objects.first().a, '96')
+        self.assertEqual(Vote.objects.first().b, '184')
 
     def test_vote(self):
         self.gen_votes()

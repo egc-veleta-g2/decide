@@ -24,7 +24,9 @@ Enumerar los pasos a seguir para replicar el problema. Ejemplo:
 
 Insertar cada captura junto a una pequeña descripción.
 
+
 **Necesidades del subsistema de [nombre subsistema]**
+
 
 Se espera/necesita [detallar el cambio que se necesita implementar].
 

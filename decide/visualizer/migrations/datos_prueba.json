@@ -1,0 +1,717 @@
+[
+    {
+        "model": "base.auth",
+        "pk": 1,
+        "fields": {
+            "name": "base",
+            "url": "http://localhost:8000",
+            "me": true
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 1,
+        "fields": {
+            "p": 70705409170545164576969744955698531067311152817743638645129280063168558034303,
+            "g": 31655047671573379487439289343485722806559187914016879307639399002284394855120,
+            "y": 36625341277572675937081307463054425271016038868574732262593933047964950427152,
+            "x": 69935052541985288841233559044109900744594893762292905657103901009947629408367
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 2,
+        "fields": {
+            "p": 70705409170545164576969744955698531067311152817743638645129280063168558034303,
+            "g": 31655047671573379487439289343485722806559187914016879307639399002284394855120,
+            "y": 36625341277572675937081307463054425271016038868574732262593933047964950427152,
+            "x": 0
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 3,
+        "fields": {
+            "p": 70705409170545164576969744955698531067311152817743638645129280063168558034303,
+            "g": 31655047671573379487439289343485722806559187914016879307639399002284394855120,
+            "y": 36625341277572675937081307463054425271016038868574732262593933047964950427152,
+            "x": 0
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 4,
+        "fields": {
+            "p": 89120860843999101528232425725420535909645374079296742949429726059127428933587,
+            "g": 36819606600017067703303310602638031041012387053126250026459627031286554573218,
+            "y": 83526533250336887235129315032830451082312629546834752122159925612946822827165,
+            "x": 47827833178140523462145973993365286936579937694743791503893302617622696103378
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 5,
+        "fields": {
+            "p": 89120860843999101528232425725420535909645374079296742949429726059127428933587,
+            "g": 36819606600017067703303310602638031041012387053126250026459627031286554573218,
+            "y": 83526533250336887235129315032830451082312629546834752122159925612946822827165,
+            "x": 0
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 6,
+        "fields": {
+            "p": 89120860843999101528232425725420535909645374079296742949429726059127428933587,
+            "g": 36819606600017067703303310602638031041012387053126250026459627031286554573218,
+            "y": 83526533250336887235129315032830451082312629546834752122159925612946822827165,
+            "x": 0
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 7,
+        "fields": {
+            "p": 73364312233429661166814784636272844037486908282338751127899517520391211072683,
+            "g": 39947803000981016768283174005929054969521342906128653305160200484803344217085,
+            "y": 16746171603617876526498646403032944526120877653845482341415047065153145447887,
+            "x": 36563300294127526124181246522163610559505978746744091673785780887720009417423
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 8,
+        "fields": {
+            "p": 73364312233429661166814784636272844037486908282338751127899517520391211072683,
+            "g": 39947803000981016768283174005929054969521342906128653305160200484803344217085,
+            "y": 16746171603617876526498646403032944526120877653845482341415047065153145447887,
+            "x": 0
+        }
+    },
+    {
+        "model": "base.key",
+        "pk": 9,
+        "fields": {
+            "p": 73364312233429661166814784636272844037486908282338751127899517520391211072683,
+            "g": 39947803000981016768283174005929054969521342906128653305160200484803344217085,
+            "y": 16746171603617876526498646403032944526120877653845482341415047065153145447887,
+            "x": 0
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 1,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 1
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 2,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 2
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 3,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 3
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 4,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 4
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 5,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 5
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 6,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 1
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 7,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 2
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 8,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 3
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 9,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 4
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 10,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 5
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 11,
+        "fields": {
+            "voting_id": 3,
+            "voter_id": 1
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 12,
+        "fields": {
+            "voting_id": 3,
+            "voter_id": 2
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 13,
+        "fields": {
+            "voting_id": 3,
+            "voter_id": 3
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 14,
+        "fields": {
+            "voting_id": 3,
+            "voter_id": 4
+        }
+    },
+    {
+        "model": "census.census",
+        "pk": 15,
+        "fields": {
+            "voting_id": 3,
+            "voter_id": 5
+        }
+    },
+    {
+        "model": "mixnet.mixnet",
+        "pk": 1,
+        "fields": {
+            "voting_id": 1,
+            "auth_position": 0,
+            "key": 1,
+            "pubkey": 2,
+            "auths": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "mixnet.mixnet",
+        "pk": 2,
+        "fields": {
+            "voting_id": 2,
+            "auth_position": 0,
+            "key": 4,
+            "pubkey": 5,
+            "auths": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "mixnet.mixnet",
+        "pk": 3,
+        "fields": {
+            "voting_id": 3,
+            "auth_position": 0,
+            "key": 7,
+            "pubkey": 8,
+            "auths": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 1,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 1,
+            "a": 11805944968170371395251571256958174105986363700444630012772335684364110380523,
+            "b": 59008151299807414469687292005919192874224741871747391336783263899990091708144,
+            "voted": "2021-12-21T12:02:39.118Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 2,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 4,
+            "a": 24434518568975418999915689894872474074942187058651694607177980895155501552414,
+            "b": 50359178670309509237849090726270739505800239958466134009925988041716568553381,
+            "voted": "2021-12-21T12:02:50.559Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 3,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 2,
+            "a": 63041040963926648165302896252044662074790700633588683435418050174858264893840,
+            "b": 33092893436799501030837035440927129233608401157273637299590454256526879918328,
+            "voted": "2021-12-21T12:03:02.605Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 4,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 5,
+            "a": 18032908473324648502678185561644938684767679176040891926637652803161121539181,
+            "b": 6063806852356703366609232401502345776783896464381346816864989707385589134909,
+            "voted": "2021-12-21T12:03:13.485Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 5,
+        "fields": {
+            "voting_id": 1,
+            "voter_id": 3,
+            "a": 13215370610599887563959238746231753055920821126383897713341900717422831652462,
+            "b": 38221234362920247263053636150297772433060194717659498302563024660470421257394,
+            "voted": "2021-12-21T12:03:24.511Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 6,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 1,
+            "a": 38398486525887893144992438990000824981992131991385924205894883316362761241669,
+            "b": 69679827277359766882459032954391783041362921787518224216781089589870094421582,
+            "voted": "2021-12-21T12:03:48.178Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 7,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 4,
+            "a": 55376632079999872732458407050681849644652738093611473581856102278103603951977,
+            "b": 49282550018506382833527129995735393489419932051830975030467292880118257912423,
+            "voted": "2021-12-21T12:03:55.506Z"
+        }
+    },
+    {
+        "model": "store.vote",
+        "pk": 8,
+        "fields": {
+            "voting_id": 2,
+            "voter_id": 2,
+            "a": 46170443582954932036412463332030965614426031694979980020756238100392714952947,
+            "b": 63974832491814677657869921005263961491878896980205379225405772135879813043641,
+            "voted": "2021-12-21T12:04:04.739Z"
+        }
+    },
+    {
+        "model": "voting.question",
+        "pk": 1,
+        "fields": {
+            "desc": "\u00bfCu\u00e1l es tu color preferido?"
+        }
+    },
+    {
+        "model": "voting.question",
+        "pk": 2,
+        "fields": {
+            "desc": "\u00bfCu\u00e1l es tu lugar favorito?"
+        }
+    },
+    {
+        "model": "voting.question",
+        "pk": 3,
+        "fields": {
+            "desc": "\u00bfQu\u00e9 te gustar\u00eda comer?"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 1,
+        "fields": {
+            "question": 1,
+            "number": 1,
+            "option": "Amarillo"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 2,
+        "fields": {
+            "question": 1,
+            "number": 2,
+            "option": "Negro"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 3,
+        "fields": {
+            "question": 1,
+            "number": 3,
+            "option": "Blanco"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 4,
+        "fields": {
+            "question": 1,
+            "number": 4,
+            "option": "Morado"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 5,
+        "fields": {
+            "question": 1,
+            "number": 5,
+            "option": "Verde"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 6,
+        "fields": {
+            "question": 2,
+            "number": 1,
+            "option": "Londres"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 7,
+        "fields": {
+            "question": 2,
+            "number": 2,
+            "option": "Par\u00eds"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 8,
+        "fields": {
+            "question": 2,
+            "number": 3,
+            "option": "Roma"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 9,
+        "fields": {
+            "question": 2,
+            "number": 4,
+            "option": "Berl\u00edn"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 10,
+        "fields": {
+            "question": 2,
+            "number": 5,
+            "option": "Bruselas"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 11,
+        "fields": {
+            "question": 3,
+            "number": 1,
+            "option": "Gastronom\u00eda mediterr\u00e1nea"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 12,
+        "fields": {
+            "question": 3,
+            "number": 2,
+            "option": "Gastronom\u00eda japonesa"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 13,
+        "fields": {
+            "question": 3,
+            "number": 3,
+            "option": "Gastronom\u00eda italiana"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 14,
+        "fields": {
+            "question": 3,
+            "number": 4,
+            "option": "Gastronom\u00eda asi\u00e1tica"
+        }
+    },
+    {
+        "model": "voting.questionoption",
+        "pk": 15,
+        "fields": {
+            "question": 3,
+            "number": 5,
+            "option": "Gastronom\u00eda \u00e1rabe"
+        }
+    },
+    {
+        "model": "voting.voting",
+        "pk": 1,
+        "fields": {
+            "name": "Saber sobre ti",
+            "desc": "Votaci\u00f3n para conocerte un poco m\u00e1s",
+            "question": 1,
+            "start_date": "2021-12-21T11:57:23.156Z",
+            "end_date": "2021-12-21T12:04:39.664Z",
+            "pub_key": 3,
+            "tally": [
+                4,
+                5,
+                2,
+                4,
+                1
+            ],
+            "postproc": [
+                {
+                    "votes": 2,
+                    "number": 4,
+                    "option": "Morado",
+                    "postproc": 2
+                },
+                {
+                    "votes": 1,
+                    "number": 1,
+                    "option": "Amarillo",
+                    "postproc": 1
+                },
+                {
+                    "votes": 1,
+                    "number": 2,
+                    "option": "Negro",
+                    "postproc": 1
+                },
+                {
+                    "votes": 1,
+                    "number": 5,
+                    "option": "Verde",
+                    "postproc": 1
+                },
+                {
+                    "votes": 0,
+                    "number": 3,
+                    "option": "Blanco",
+                    "postproc": 0
+                }
+            ],
+            "auths": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "voting.voting",
+        "pk": 2,
+        "fields": {
+            "name": "Lugares",
+            "desc": "Sitios bonitos",
+            "question": 2,
+            "start_date": "2021-12-21T12:01:16.708Z",
+            "end_date": "2021-12-21T12:04:39.655Z",
+            "pub_key": 6,
+            "tally": [
+                3,
+                4,
+                1
+            ],
+            "postproc": [
+                {
+                    "votes": 1,
+                    "number": 1,
+                    "option": "Londres",
+                    "postproc": 1
+                },
+                {
+                    "votes": 1,
+                    "number": 3,
+                    "option": "Roma",
+                    "postproc": 1
+                },
+                {
+                    "votes": 1,
+                    "number": 4,
+                    "option": "Berl\u00edn",
+                    "postproc": 1
+                },
+                {
+                    "votes": 0,
+                    "number": 2,
+                    "option": "Par\u00eds",
+                    "postproc": 0
+                },
+                {
+                    "votes": 0,
+                    "number": 5,
+                    "option": "Bruselas",
+                    "postproc": 0
+                }
+            ],
+            "auths": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "voting.voting",
+        "pk": 3,
+        "fields": {
+            "name": "Comidas",
+            "desc": "Vamos de comida",
+            "question": 3,
+            "start_date": "2021-12-21T12:14:20.965Z",
+            "end_date": null,
+            "pub_key": 9,
+            "tally": null,
+            "postproc": null,
+            "auths": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$sDxqjGeyok3H$RUxzngtOAS8x08CYV8+dMPif8bLOXvetEWKKCtAfCv8=",
+            "last_login": "2021-12-21T12:04:31.856Z",
+            "is_superuser": true,
+            "username": "Jack",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-12-21T11:53:50.825Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$liQP0obEGg5g$Cp/oX9pEyNwRO4olxaAC6cVkOWtKsI/ihLJfkl38C1U=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "Alberto",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-12-21T11:54:08.519Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$dcTdGnYjMi4y$3w8COj+Dv6kbXcG9xuIMsX/Hbe6S3KmpI9OgFVmCmWE=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "Adrian",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-12-21T11:54:26.359Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$8I9qFbECK94D$ZsBsi1L9WRPYv7mYRBs9pcPb3eyiBTroy4fLaiVy2uQ=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "Isa",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-12-21T11:54:41.231Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$xxBCkXTLYlFU$Z7dosy2GBfHLiccK3oU+5Pr+zH0yfrTyB1yZ6BT2lek=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "Alejandro",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-12-21T11:54:58.878Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]

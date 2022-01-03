@@ -18,5 +18,5 @@ class TestTestiniciosinlogear(StaticLiveServerTestCase):
     self.driver.quit()
 
   def test_test_inicio_sin_logear(self):
-    self.driver.get("http://localhost:8000/booth/inicio/")
+    self.driver.get("http://localhost:8000/booth/")
     self.driver.find_element(By.ID, "alertButton").click()

@@ -14,6 +14,7 @@ from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 from store.models import Vote
 
+
 class VotingTestCase(BaseTestCase):
 
     def setUp(self):

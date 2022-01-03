@@ -35,7 +35,9 @@ jobs:
         pip install -r requirements.txt
         pip install codacy-coverage
     - name: Run migrations
-      run: cd decide;python manage.py migrate
+
+      run: cd decide;python manage.py makemigrations; python manage.py migrate
+
     - name: Run tests     
       run: cd decide;coverage run --branch --source=. ./manage.py test authentication booth census postproc store visualizer voting --keepdb; coverage xml;
     - name: Codacy Coverage Reporter
@@ -53,4 +55,6 @@ jobs:
       with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "egc-veleta-g2"
-          heroku_email: "manmogvil@alum.us.es"
+
+          heroku_email: "manmogvi@alum.us.es"
+

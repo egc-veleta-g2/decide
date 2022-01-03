@@ -62,8 +62,14 @@ class VisualizerTestCaseSelenium(BaseTestCase):
 
         self.base.tearDown()
 
-    def test_texto_inicio_visualizer(self):                    
-        self.driver.get(f'{self.live_server_url}/visualizer/')
-        self.assertTrue(self.driver.find_element(By.CSS_SELECTOR,"h1")== "¡Bienvenidos a los resultados de las votaciones en Decide!")
+    #def test_texto_inicio_visualizer(self):                    
+    #    self.driver.get(f'{self.live_server_url}/visualizer/')
+    #    self.assertTrue(self.driver.find_element(By.CSS_SELECTOR,"h1")== "¡Bienvenidos a los resultados de las votaciones en Decide!")
+    def test_update_voting_400(self):
+        v = self.create_voting()
+        data = {} #El campo action es requerido en la request
+        self.login()
+        response = self.client.put('/voting/{}/'.format(v.pk), data, format= 'json')
+        self.assertEquals(response.status_code, 400)
     
 

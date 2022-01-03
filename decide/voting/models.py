@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.exceptions import ValidationError
 
 from base import mods
 from base.models import Auth, Key
@@ -11,9 +12,14 @@ class Question(models.Model):
     ANSWER_TYPES = ((1, "Unique option"), (2, "Rank order"))
     option_types = models.PositiveIntegerField(choices=ANSWER_TYPES, default="1")
     desc = models.TextField()
+    ANSWER_TYPES_VOTING = ((0, "IDENTITY"), (1, "BORDA"))
+    type = models.PositiveIntegerField(choices=ANSWER_TYPES_VOTING, default="0")
 
+    def clean(self):
+        if self.option_types == 2 and not self.type == 1:
+            raise ValidationError(('Rank order scale option type must be selected with Borda type.'))
     def __str__(self):
-        return self.desc
+         return self.desc
 
 
 class QuestionOption(models.Model):

@@ -15,6 +15,7 @@ from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
 
 class VotingTestCase(BaseTestCase):
 
@@ -246,41 +247,49 @@ class VotingTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
 
 
-# método auxiliar
+# métodos auxiliares
 
-    # def create_voting_prueba(self):
-    #         q = Question(desc='test question 2', option_types= 1)
-    #         q.save()
-    #         for i in range(5):
-    #             opt = QuestionOption(question=q, option='option {}'.format(i + 1))
-    #             opt.save()
-    #         v = Voting(name='test voting 2')
+    def create_voting_prueba(self):
+            q = Question(desc='test question 2', option_types= 1)
+            q.save()
+            for i in range(5):
+                opt = QuestionOption(question=q, option='option {}'.format(i + 1))
+                opt.save()
+            v = Voting(name='test voting 2',question=q)
 
-    #         v.save()
-    #         v.question.add(q)
-    #         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
-    #                                       defaults={'me': True, 'name': 'test auth'})
-    #         a.save()
-    #         v.auths.add(a)
+            v.save()
+            a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
+                                          defaults={'me': True, 'name': 'test auth'})
+            a.save()
+            v.auths.add(a)
 
-    #         return v
+            return v
 
+    def create_question(self):
+        q = Question(desc='test question')
+        q.save()
+        return q
 
-
-         #PRUEBAS UNITARIAS
+#PRUEBAS UNITARIAS
 
 
     # Caso positivo: se crean dos votaciones con nombres diferentes y se cumple correctamente
 
-    # def test_duplicate_voting_name_positive(self):
-    #     v1 = self.create_voting()
-    #     v2 = self.create_voting_prueba()
-    #     self.assertNotEqual(v1, v2)
+    def test_duplicate_voting_name_positive(self):
+        v1 = self.create_voting()
+        v2 = self.create_voting_prueba()
+        self.assertNotEqual(v1, v2)
 
-    # Caso negativo: se crean dos votaciones con nombres repetidos y salta la excepción
+    # rank order (opciones)
 
-    # def test_duplicate_voting_name_negative(self):
-    #     v1 = self.create_voting()
-    #     with self.assertRaises(Exception) as raised:
-    #         v2 = self.create_voting()
-    #     self.assertEqual(IntegrityError, type(raised.exception))
+
+    # creación de una question con valores de option_type no valido.
+
+    def test_create_question_optiontypes_neg(self):
+        q = self.create_question()
+        q.option_types = 9999
+
+        with self.assertRaises(Exception) as raised:
+            q.full_clean()
+            q.save()
+        self.assertEqual(ValidationError, type(raised.exception))

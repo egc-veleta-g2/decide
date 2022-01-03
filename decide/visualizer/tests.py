@@ -1,8 +1,15 @@
+#Imports de Visualizer
 from django.conf import settings
 from base.tests import BaseTestCase
 import visualizer.views as vw
 
-
+#Imports de Selenium
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 class VisualizerTestCase(BaseTestCase):
     fixtures = ['visualizer/migrations/datos_prueba.json', ]
@@ -36,6 +43,27 @@ class VisualizerTestCase(BaseTestCase):
         diferencia = vw.dateComparer(fecha1, fecha2)[0]
         self.assertEqual(diferencia, resultado)
     
+class VisualizerTestCaseSelenium(BaseTestCase):
+    fixtures = ['visualizer/migrations/datos_prueba.json', ]
 
+    def setUp(self):
+        #Load base test functionality for decide
+        self.base = BaseTestCase()
+        self.base.setUp()
+
+        options = webdriver.ChromeOptions()
+        options.headless = False
+        self.driver = webdriver.Chrome(options=options)
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.driver.quit()
+
+        self.base.tearDown()
+
+    def test_texto_inicio_visualizer(self):                    
+        self.driver.get(f'{self.live_server_url}/visualizer/')
+        self.assertTrue(self.driver.find_element(By.CSS_SELECTOR,"h1")== "¡Bienvenidos a los resultados de las votaciones en Decide!")
     
 

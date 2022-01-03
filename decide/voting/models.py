@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.exceptions import ValidationError
 
 from base import mods
 from base.models import Auth, Key
@@ -42,6 +43,11 @@ class Voting(models.Model):
 
     tally = JSONField(blank=True, null=True)
     postproc = JSONField(blank=True, null=True)
+
+    def clean(self):
+        urlValidacion = self.url
+        if urlValidacion == '/':
+            raise ValidationError("El valor / no es válido")
 
     def create_pubkey(self):
         if self.pub_key or not self.auths.count():
@@ -122,3 +128,5 @@ class Voting(models.Model):
 
     def __str__(self):
         return self.name
+
+

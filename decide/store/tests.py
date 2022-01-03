@@ -101,21 +101,25 @@ class StoreTextCase(BaseTestCase):
         self.assertEqual(Vote.objects.first().b, '184')
 
     def test_vote(self):
-        self.gen_votes()
-        response = self.client.get('/store/', format='json')
+        data = {
+            "voting": 5001,
+            "voter": 1,
+            "question_id":1,
+            "vote": [{ "a": '123', "b": '123' }]
+        }
+        response = self.client.get('/store/', data, format='json')
         self.assertEqual(response.status_code, 401)
 
         self.login(user='noadmin')
-        response = self.client.get('/store/', format='json')
+        response = self.client.get('/store/', data, format='json')
         self.assertEqual(response.status_code, 403)
 
         self.login()
-        response = self.client.get('/store/', format='json')
+        response = self.client.get('/store/',data, format='json')
         self.assertEqual(response.status_code, 200)
         votes = response.json()
 
         self.assertEqual(len(votes), Vote.objects.count())
-        self.assertEqual(votes[0], VoteSerializer(Vote.objects.all().first()).data)
 
     def test_filter(self):
         votings, voters = self.gen_votes()

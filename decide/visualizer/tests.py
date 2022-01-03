@@ -1,5 +1,6 @@
 #Imports de Visualizer
 from django.conf import settings
+import selenium
 from base.tests import BaseTestCase
 import visualizer.views as vw
 
@@ -43,33 +44,14 @@ class VisualizerTestCase(BaseTestCase):
         diferencia = vw.dateComparer(fecha1, fecha2)[0]
         self.assertEqual(diferencia, resultado)
     
-class VisualizerTestCaseSelenium(BaseTestCase):
-    fixtures = ['visualizer/migrations/datos_prueba.json', ]
+#class VisualizerTestCaseSelenium(BaseTestCase):
 
-    def setUp(self):
-        #Load base test functionality for decide
-        self.base = BaseTestCase()
-        self.base.setUp()
-
-        options = webdriver.ChromeOptions()
+    def test_texto_inicio_visualizer_correcto(self): 
+        options= webdriver.ChromeOptions()
         options.headless = False
-        self.driver = webdriver.Chrome(options=options)
-        super().setUp()
+        driver = webdriver.Chrome(options=options)                 
+        webdriver.Chrome.get(driver,f'{driver.current_url}/visualizer/')
+        driver.implicitly_wait(10)
+        webdriver.Chrome.find_element_by_class_name(driver,'col-md-8 offset-md-2 text-center')
 
-    def tearDown(self):
-        super().tearDown()
-        self.driver.quit()
-
-        self.base.tearDown()
-
-    #def test_texto_inicio_visualizer(self):                    
-    #    self.driver.get(f'{self.live_server_url}/visualizer/')
-    #    self.assertTrue(self.driver.find_element(By.CSS_SELECTOR,"h1")== "¡Bienvenidos a los resultados de las votaciones en Decide!")
-    def test_update_voting_400(self):
-        v = self.create_voting()
-        data = {} #El campo action es requerido en la request
-        self.login()
-        response = self.client.put('/voting/{}/'.format(v.pk), data, format= 'json')
-        self.assertEquals(response.status_code, 400)
-    
 

@@ -11,8 +11,3 @@ class chooseTypeForm(forms.Form):
     choices = [('m','Pregunta multielección'),('d','Pregunta dicotómica')]
     type_ratio = forms.ChoiceField(label="Tipo:", widget=forms.RadioSelect, required=True,choices=choices)
 
-def clean_url(self):
-    url = self.cleaned_data.get['url']
-    if url == '/':
-        raise forms.ValidationError('El valor / no es válido')
-    return url

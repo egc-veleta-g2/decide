@@ -68,7 +68,7 @@ MODULES = [
 ]
 
 
-BASEURL = 'https://egc-veleta.herokuapp.com'
+BASEURL = 'https://egc-veleta-g1.herokuapp.com'
 APIS = {}
 
 MIDDLEWARE = [

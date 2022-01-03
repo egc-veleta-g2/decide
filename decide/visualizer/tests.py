@@ -46,12 +46,12 @@ class VisualizerTestCase(BaseTestCase):
     
 #class VisualizerTestCaseSelenium(BaseTestCase):
 
-    def test_texto_inicio_visualizer_correcto(self): 
-        options= webdriver.ChromeOptions()
-        options.headless = False
-        driver = webdriver.Chrome(options=options)                 
-        webdriver.Chrome.get(driver,f'{driver.current_url}/visualizer/')
-        driver.implicitly_wait(10)
-        webdriver.Chrome.find_element_by_class_name(driver,'col-md-8 offset-md-2 text-center')
+    #def test_texto_inicio_visualizer_correcto(self): 
+        #options= webdriver.ChromeOptions()
+        #options.headless = False
+        #driver = webdriver.Chrome(options=options)                 
+        #webdriver.Chrome.get(driver,f'{driver.current_url}/visualizer/')
+        #driver.implicitly_wait(10)
+        #webdriver.Chrome.find_element_by_class_name(driver,'col-md-8 offset-md-2 text-center')
 
 

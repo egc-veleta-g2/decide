@@ -242,24 +242,18 @@ class VotingTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_create_voting_invalidurl(self):
+        self.login()
 
         data = {
             'name': 'Example',
             'desc': 'Description example',
-            'url': '/',
+            'url': '//',
             'question': 'I want a ',
             'question_opt': ['cat', 'dog', 'horse']
         }
 
-        response = self.client.post('/voting/', data, format='json')
-        self.assertEqual(response.status_code, 401)
-
-    def test_update_voting_invalidurl(self):
-
-        data = {'url': '/'}
-
-        response = self.client.put('/voting/dichotomy', data, format='json')
-        self.assertEqual(response.status_code, 301)
+        response = mods.post('voting', params=data, response=True)
+        self.assertEqual(response.status_code, 400)
 
     def test_create_voting_url(self):
 

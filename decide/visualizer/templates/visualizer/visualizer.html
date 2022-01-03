@@ -16,13 +16,13 @@
             <b-button v-b-toggle.collapse-2 variant="primary">Resultados</b-button>
             <b-collapse id="collapse-2" class="mt-2">
               <b-card>
-                <p class="card-text">        
+                <p class="card-text">
                 <div class="voting container">
                     <h2 v-if="!voting.start_date">Votación no comenzada</h2>
                     <h2 v-else-if="!voting.end_date">Votación en curso</h2>
                     <div v-else>
                         <h2 class="heading">Resultados:</h2>
-        
+
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -92,7 +92,7 @@
                                   </b-progress>
                                 </div>
                               </template>
-                              
+
                               <script>
                                 export default {
                                   data() {

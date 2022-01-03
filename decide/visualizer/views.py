@@ -14,7 +14,15 @@ class VisualizerInicioView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         votaciones_finalizadas = Voting.objects.filter(end_date__isnull=False, tally__isnull=False)
+        votaciones_cerradas = Voting.objects.filter(end_date__isnull=False, tally__isnull=True)
+        votaciones_abiertas = Voting.objects.filter(end_date__isnull=True, tally__isnull=True)
+        votaciones_no_finalizadas = Voting.objects.filter(tally__isnull=True)
+        censo_votantes = Census.objects.all
         context['vot_finalizadas'] = votaciones_finalizadas
+        context['vot_no_finalizadas'] = votaciones_no_finalizadas
+        context['vot_cerradas'] = votaciones_cerradas
+        context['vot_abiertas'] = votaciones_abiertas
+        context['censo'] = censo_votantes
         return context
 
 

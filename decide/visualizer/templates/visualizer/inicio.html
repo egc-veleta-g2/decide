@@ -13,12 +13,15 @@
 {% block content %}
 <h1>¡Bienvenidos a los resultados de las votaciones en Decide!</h1>
 <div class="mt-5">
+  <h2>Votaciones cerradas</h1>
 <table class="table" aria-describedby="votingsInfo">
     <thead>
       <tr>
         <th scope="col">Votación</th>
         <th scope="col">Descripción</th>
         <th scope="col">Fecha de inicio</th>
+        <th scope="col">Fecha de fin</th>
+        <th scope="col">Estado</th>
       </tr>
     </thead>
     <tbody>
@@ -27,11 +30,66 @@
         <td><a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a></td>
         <td>{{votacion.desc}}</td>
         <td>{{votacion.start_date}}</td>
+        <td>{{votacion.end_date}}</td>
+        <td>Cerrada</td>
       </tr>
     {% endfor %}
     </tbody>
 </table>
 </div>
+
+<div class="mt-5">
+  <h2>Otras votaciones</h1>
+<table class="table" aria-describedby="votingsInfo">
+    <thead>
+      <tr>
+        <th scope="col">Votación</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Fecha de inicio</th>
+        <th scope="col">Fecha de fin</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for votacion2 in vot_no_finalizadas %}
+      <tr>
+        <td>{{votacion2.name}}</a></td>
+        <td>{{votacion2.desc}}</td>
+        <td>{{votacion2.start_date}}</td>
+        <td>{{votacion2.end_date}}</td>
+        <td>{% if votacion2 in vot_cerradas %}
+             Pendiente Tally
+            {% else %}
+             Abierta
+            {% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+<div>
+  <b-button v-b-toggle.collapse-3 variant="primary">Estadísticas</b-button>
+  <b-collapse id="collapse-3" class="mt-2">
+    <b-card>
+      <p class="card-text">        
+      <div class="voting container">
+          <h2 class="heading">Estadísticas de las votaciones</h2>
+
+          <table class="table table-bordered table-striped">
+            <tr>
+              <td>COsa1</td>
+               <td>cosa2</td>
+             </tr>
+          </table>
+      </div></p>
+      </b-collapse>
+    </b-card>
+  </b-collapse>
+</div>
+
+
 </div>
 {% endblock %}
 

@@ -85,4 +85,19 @@ class BoothTestCase(BaseTestCase):
         response = self.client.get('/booth/'+str(v.id), format = 'json')
         self.assertEqual(response.status_code,301)
 
+    def test_custom_no_slash(self):
+        v = self.create_voting()
+        self.create_voters(v)
+
+        palabra = '/'
+
+        v.create_pubkey()
+        v.start_date = timezone.now()
+        v.save()
+
+        response = self.client.get('/booth/'+palabra, format = 'json')
+        self.assertEqual(response.status_code,404)
+
+
+
 

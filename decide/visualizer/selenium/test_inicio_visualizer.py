@@ -41,6 +41,13 @@ class TestTestcrearpregunta(StaticLiveServerTestCase):
     assert len(elements) > 0
     elements = self.driver.find_elements(By.CSS_SELECTOR, ".copyright")
     assert len(elements) > 0
+  
+  def test_acceso_resultados_votacion_por_inicio_visualizer(self):
+    self.driver.get("{}/visualizer".format(self.live_server_url))
+    self.driver.set_window_size(1848, 1016)
+    self.driver.find_element(By.CSS_SELECTOR, "a").click()
+    elements = self.driver.find_elements(By.CSS_SELECTOR, "button")
+    assert len(elements) > 0
 
 
     

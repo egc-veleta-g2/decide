@@ -32,8 +32,8 @@ class TestCreateOrderQuestionPositive(StaticLiveServerTestCase):
       url = settings.BASEURL
       self.driver.get(str(url)+"/admin/login/?next=/admin/")
       self.driver.set_window_size(909, 1016)
-      self.driver.find_element(By.ID, "id_username").send_keys("lizesqsaa")
-      self.driver.find_element(By.ID, "id_password").send_keys("lizesqsaa1")
+      self.driver.find_element(By.ID, "id_username").send_keys("veleta")
+      self.driver.find_element(By.ID, "id_password").send_keys("veleta2021")
       self.driver.find_element(By.ID, "id_password").send_keys(Keys.ENTER)
       time.sleep(2)
       self.driver.find_element(By.LINK_TEXT, "Questions").click()

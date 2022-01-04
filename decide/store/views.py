@@ -9,6 +9,9 @@ from .models import Vote
 from .serializers import VoteSerializer
 from base import mods
 from base.perms import UserIsStaff
+from census.models import Census
+from voting.models import Voting
+
 
 
 class StoreView(generics.ListAPIView):
@@ -55,6 +58,7 @@ class StoreView(generics.ListAPIView):
 
         # the user is in the census
         perms = mods.get('census/{}'.format(vid), params={'voter_id': uid}, response=True)
+
         if perms.status_code == 401:
             return Response({}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -63,6 +67,7 @@ class StoreView(generics.ListAPIView):
         # print(vote)
         a = a + str(vote['a']) + ','
         b = b + str(vote['b']) + ','
+
 
         a = a[:-1]
         b = b[:-1]

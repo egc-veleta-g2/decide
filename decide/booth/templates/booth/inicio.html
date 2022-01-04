@@ -51,7 +51,7 @@
                                             {% if votacion.end_date != None %}
                                                 <p>Fecha de finalización: {{votacion.end_date}}</p>
                                             {% endif %}
-                                            {% if votacion.start_date != None %}
+                                            {% if votacion.start_date != None and votacion.end_date == None%}
                                                 <a href="/booth/{{votacion.id}}">Acceder a la votación</a>
                                             {% endif %}
                                         </div>
@@ -90,11 +90,11 @@
                                             <p>Fecha de comienzo: {{votacion.start_date}}</p>
                                             {% if votacion.end_date == None %}
                                                 <p>Fecha de finalización: Sin finalizar.</p>
+                                                <a href="/booth/{{votacion.id}}">Acceder a la votación</a>
                                             {% endif %}
                                             {% if votacion.end_date != None %}
                                                 <p>Fecha de finalización: {{votacion.end_date}}</p>
                                             {% endif %}
-                                            <a href="/booth/{{votacion.id}}">Acceder a la votación</a>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
 {% if not usuario.id %}
 <div class="alert alert-danger" id="divAlert" role="alert">
     Parece que no has iniciado sesión
-    <a tpye=button href="/admin" class="btn btn-primary" id="alertButton">Login</a>  
+    <a tpye=button href="/admin" class="btn btn-primary" id="alertButton">Login</a>
 </div>
 {% endif %}
 {% endblock %}

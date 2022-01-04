@@ -65,8 +65,11 @@ class InicioVisualizerTestCaseSelenium(BaseTestCase):
         self.driver.quit()
         self.base.tearDown()
     
-    def test_texto_acceso_inicio_visualizer_correcto(self): 
-        self.driver.get('http://localhost:8080/visualizer')
+    def test_texto_acceso_inicio_visualizer_correcto(self):
+        self.driver.get("{}/visualizer".format(self.live_server_url))
+        #self.driver.get('http://localhost:8080/visualizer')
         a= self.driver.find_element(By.CSS_SELECTOR,'h1').get_attribute("innerHTML")
         self.assertEquals(a,'¡Bienvenidos a los resultados de las votaciones en Decide!')
+
+
 

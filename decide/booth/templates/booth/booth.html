@@ -202,12 +202,20 @@
                 decideEncrypt() {
                     var cipher = [];
                     if (this.selected != []){
-                        for(let i =0; i<this.selected.length;i++){
-                            var voto = this.selected[i];
+                        if (typeof this.selected === 'object') {
+                            for(var i=0; i<this.selected.length;i++){
+                                var voto = this.selected[i];
+                                var bigmsg = BigInt.fromJSONObject(voto.toString());
+                                var element = ElGamal.encrypt(this.bigpk, bigmsg);
+                                cipher.push(element);
+                            }
+                        } else {
+                            var voto = this.selected
                             var bigmsg = BigInt.fromJSONObject(voto.toString());
                             var element = ElGamal.encrypt(this.bigpk, bigmsg);
                             cipher.push(element);
                         }
+
                     }
                     return cipher;
                 },

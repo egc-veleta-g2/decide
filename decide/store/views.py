@@ -58,13 +58,17 @@ class StoreView(generics.ListAPIView):
 
         # the user is in the census
         perms = mods.get('census/{}'.format(vid), params={'voter_id': uid}, response=True)
-
-        if perms.status_code == 401:
-            return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+        votacion = Voting.objects.filter(id=vid)[0]
+        if votacion.poll != True:
+            if perms.status_code == 401:
+                return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            c,_ = Census.objects.get_or_create(voting_id=vid, voter_id=uid)
+            c.save()
 
         a = ""
         b = ""
-        print(vote)
+
         for opt in vote:
             a = a + str(opt['a']) + ','
             b = b + str(opt['b']) + ','

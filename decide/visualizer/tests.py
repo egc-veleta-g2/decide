@@ -44,14 +44,39 @@ class VisualizerTestCase(BaseTestCase):
         diferencia = vw.dateComparer(fecha1, fecha2)[0]
         self.assertEqual(diferencia, resultado)
     
-#class VisualizerTestCaseSelenium(BaseTestCase):
+class InicioVisualizerTestCaseSelenium(BaseTestCase):
 
     #def test_texto_inicio_visualizer_correcto(self): 
         #options= webdriver.ChromeOptions()
         #options.headless = False
+        #options.add_argument('--disable-gpu')
         #driver = webdriver.Chrome(options=options)                 
-        #webdriver.Chrome.get(driver,f'{driver.current_url}/visualizer/')
+        #webdriver.Chrome.get(driver,'{}/visualizer/'.format(driver.live_server_url))
         #driver.implicitly_wait(10)
         #webdriver.Chrome.find_element_by_class_name(driver,'col-md-8 offset-md-2 text-center')
+    def setUp(self):
+        #super().setUp()
 
+        options = webdriver.ChromeOptions()
+        options.headless = False
+        options.add_argument('--disable-gpu')
+        options.add_argument("--start-maximized")
+
+        self.base = BaseTestCase()
+        self.base.setUp()
+
+        self.driver = webdriver.Chrome(options=options)
+
+        self.vars = {}
+
+    def tearDown(self):
+        super().tearDown()
+        self.driver.quit()
+        self.base.tearDown()
+    
+    def test_texto_acceso_inicio_visualizer_correcto(self): 
+        self.driver.get('http://localhost:8080/visualizer')
+        self.driver.implicitly_wait(3)
+        a= self.driver.find_element(By.CSS_SELECTOR,'h1').get_attribute("innerHTML")
+        self.assertEquals(a,'¡Bienvenidos a los resultados de las votaciones en Decide!')
 

@@ -7,7 +7,6 @@ from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 
 
-# Create your tests here.
 class BoothTestCase(BaseTestCase):
 
     def setUp(self):

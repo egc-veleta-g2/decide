@@ -22,12 +22,6 @@ class BoothView(TemplateView):
         context = obtener_votacion(self, context, vid)
         return context
 
-
-            context['voting'] = json.dumps(r[0])
-            context['rank_order'] = int(r[0]['question']['option_types']) == 2
-        except:
-            raise Http404
-
 class BoothUrlView(TemplateView):
     template_name = 'booth/booth.html'
 
@@ -53,6 +47,7 @@ def obtener_votacion(self, context, vid):
             r[0]['pub_key'][k] = str(v)
 
         context['voting'] = json.dumps(r[0])
+        context['rank_order'] = int(r[0]['question']['option_types']) == 2
 
     except:
         raise Http404

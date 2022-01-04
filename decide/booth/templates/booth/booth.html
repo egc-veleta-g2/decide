@@ -9,17 +9,11 @@
     <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
 {% endblock %}
 
+{% block vue_app %}
+<div id="app-booth">
+{% endblock %}
+
 {% block content %}
-    <div id="app-booth">
-        <!-- Navbar -->
-        <b-navbar type="dark" variant="secondary">
-            <b-navbar-brand tag="h1">Decide</b-navbar-brand>
-                <b-navbar-nav class="ml-auto" v-if="!signup">
-                    <b-nav-item href="#" v-on:click="decideLogout">
-                        {% trans "logout" %}
-                    </b-nav-item>
-                </b-navbar-nav>
-        </b-navbar>
 
         <b-alert :variant="alertLvl" dismissible v-model="alertShow">
             [[ alertMsg ]]

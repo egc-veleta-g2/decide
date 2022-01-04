@@ -1,16 +1,7 @@
 #Imports de Visualizer
 from django.conf import settings
-import selenium
 from base.tests import BaseTestCase
 import visualizer.views as vw
-
-#Imports de Selenium
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 
 class VisualizerTestCase(BaseTestCase):
     fixtures = ['visualizer/migrations/datos_prueba.json', ]
@@ -44,32 +35,3 @@ class VisualizerTestCase(BaseTestCase):
         diferencia = vw.dateComparer(fecha1, fecha2)[0]
         self.assertEqual(diferencia, resultado)
     
-class InicioVisualizerTestCaseSelenium(BaseTestCase):
-
-    def setUp(self):
-
-        options = webdriver.ChromeOptions()
-        options.headless = False
-        options.add_argument('--disable-gpu')
-        options.add_argument("--start-maximized")
-
-        self.base = BaseTestCase()
-        self.base.setUp()
-
-        self.driver = webdriver.Chrome(options=options)
-
-        self.vars = {}
-
-    def tearDown(self):
-        super().tearDown()
-        self.driver.quit()
-        self.base.tearDown()
-    
-    def test_texto_acceso_inicio_visualizer_correcto(self):
-        self.driver.get("{}/visualizer".format(self.live_server_url))
-        #self.driver.get('http://localhost:8080/visualizer')
-        a= self.driver.find_element(By.CSS_SELECTOR,'h1').get_attribute("innerHTML")
-        self.assertEquals(a,'¡Bienvenidos a los resultados de las votaciones en Decide!')
-
-
-

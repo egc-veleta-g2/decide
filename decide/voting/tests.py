@@ -351,6 +351,36 @@ class VotingTestCase(BaseTestCase):
 
 
 
+    def test_create_voting_invalidurl(self):
+        self.login()
+
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'url': '//',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = mods.post('voting', params=data, response=True)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_voting_url(self):
+
+        self.login()
+
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'url': 'palabra',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = self.client.post('/voting/', data, format='json')
+        self.assertEqual(response.status_code, 201)
+
+
 # métodos auxiliares
 
     def create_voting_prueba(self):
@@ -397,6 +427,7 @@ class VotingTestCase(BaseTestCase):
             q.full_clean()
             q.save()
         self.assertEqual(ValidationError, type(raised.exception))
+
 
     def test_check_start_voting(self):
         self.login()

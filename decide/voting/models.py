@@ -52,6 +52,11 @@ class Voting(models.Model):
     tally = JSONField(blank=True, null=True)
     postproc = JSONField(blank=True, null=True)
 
+    def clean(self):
+        urlValidacion = self.url
+        if '/' in urlValidacion:
+            raise ValidationError("El valor / no es válido")
+
     def create_pubkey(self):
         if self.pub_key or not self.auths.count():
             return
@@ -131,3 +136,5 @@ class Voting(models.Model):
 
     def __str__(self):
         return self.name
+
+

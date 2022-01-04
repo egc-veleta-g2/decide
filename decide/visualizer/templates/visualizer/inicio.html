@@ -59,6 +59,8 @@
         <td>{{votacion2.end_date}}</td>
         <td>{% if votacion2 in vot_cerradas %}
              Pendiente Tally
+            {% elif votacion2 in vot_no_iniciadas%}
+             No activa
             {% else %}
              Abierta
             {% endif %}</td>
@@ -79,9 +81,45 @@
 
           <table class="table table-bordered table-striped">
             <tr>
-              <td>COsa1</td>
-               <td>cosa2</td>
-             </tr>
+              <td class="table-dark">Votaciones cerradas</td>
+              <td>{{num_vot_finalizadas}} de {{num_vot_totales}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Personas en el censo</td>
+              <td>{{num_censo}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Duración votación más larga</td>
+              <td>{{max_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Nombre votación más larga</td>
+              <td>{{name_max_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Duración votación más corta</td>
+              <td>{{min_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Nombre votación más corta</td>
+              <td>{{name_min_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Mayor número de opciones</td>
+              <td>{{max_num_opciones}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Votación con el mayor num de opciones</td>
+              <td>{{name_max}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Menor número de opciones</td>
+              <td>{{min_num_opciones}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Votación con el menor num de opciones</td>
+              <td>{{name_min}}</td>
+            </tr>
           </table>
       </div></p>
       </b-collapse>

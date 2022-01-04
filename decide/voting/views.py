@@ -1,7 +1,7 @@
 import django_filters.rest_framework
 from django.conf import settings
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, status
 from rest_framework.response import Response
 
@@ -9,6 +9,8 @@ from .models import Question, QuestionOption, Voting
 from .serializers import SimpleVotingSerializer, VotingSerializer
 from base.perms import UserIsStaff
 from base.models import Auth
+from .forms import dichotomyForm, chooseTypeForm
+from django.http.response import HttpResponseRedirect
 
 
 class VotingView(generics.ListCreateAPIView):
@@ -99,3 +101,40 @@ class VotingUpdate(generics.RetrieveUpdateDestroyAPIView):
             msg = 'Action not found, try with start, stop or tally'
             st = status.HTTP_400_BAD_REQUEST
         return Response(msg, status=st)
+
+
+def dichotomyQuestion(request):
+    form = dichotomyForm()
+    question_desc = None
+    question_ratio = None
+    if request.method == 'POST':
+        form = dichotomyForm(request.POST)
+        if form.is_valid():
+            question_ratio = form.cleaned_data['question_ratio']
+            question_desc = form.cleaned_data['question_desc']
+            question = Question(desc=question_desc)
+            question.save()
+            questions = question_ratio.split("/")
+            yesanswer = QuestionOption(question=question, number=1, option=questions[0])
+            yesanswer.save()
+            notanswer = QuestionOption(question=question, number=2, option=questions[1])
+            notanswer.save()
+
+            return HttpResponseRedirect('/admin/voting/question')
+
+    return render(request, 'dichotomyform.html', {'form': form})
+
+
+def chooseTypeQuestion(request):
+    form = chooseTypeForm()
+    type_ratio = None
+    if request.method == 'POST':
+        form = chooseTypeForm(request.POST)
+        if form.is_valid():
+            type_ratio = form.cleaned_data['type_ratio']
+            if type_ratio == "m":
+                return HttpResponseRedirect('/admin/voting/question/add/')
+            elif type_ratio == "d":
+                return HttpResponseRedirect('/voting/dichotomy')
+
+    return render(request, 'typeform.html', {'form': form})

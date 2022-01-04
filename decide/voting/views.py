@@ -136,5 +136,4 @@ def chooseTypeQuestion(request):
                 return HttpResponseRedirect('/admin/voting/question/add/')
             elif type_ratio == "d":
                 return HttpResponseRedirect('/voting/dichotomy')
-    return render(request, 'typeform.html', {'form': form})
-  
+    return render(request, 'typeform.html', {'form': form}

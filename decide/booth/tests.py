@@ -55,13 +55,6 @@ class BoothTestCase(BaseTestCase):
             c = Census(voter_id=u.id, voting_id=v.id)
             c.save()
 
-    def get_or_create_user(self, pk):
-        user, _ = User.objects.get_or_create(pk=pk)
-        user.username = 'user{}'.format(pk)
-        user.set_password('qwerty')
-        user.save()
-        return user
-
     def test_custom_url(self):
         v = self.create_voting_url()
         self.create_voters(v)

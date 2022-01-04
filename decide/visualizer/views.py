@@ -71,7 +71,7 @@ class VisualizerInicioView(TemplateView):
         for i in votaciones_totales:
             num = len(i.question.options.all())
             if num > num_opciones:
-               num_opciones = num 
+               num_opciones = num
                name_max = i.name
         context['max_num_opciones'] = num_opciones
         context['name_max'] = name_max
@@ -80,7 +80,7 @@ class VisualizerInicioView(TemplateView):
         for i in votaciones_totales:
             num = len(i.question.options.all())
             if num < num_opciones2:
-               num_opciones2 = num 
+               num_opciones2 = num
                name_min = i.name
         context['min_num_opciones'] = num_opciones2
         context['name_min'] = name_min
@@ -158,6 +158,5 @@ def dateParser(diferencia):
         if(minuto>60):
             horas= minuto//60
             minuto= minuto%60
-        
     return str(dias) + " días, "+str(horas)+ " horas, "+str(minuto)+" minutos y "+str(sec)+" segundos "
   

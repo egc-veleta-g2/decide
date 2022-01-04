@@ -14,7 +14,7 @@ from mixnet.mixcrypt import ElGamal
 from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
-from django.db.utils import IntegrityError
+# from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 
 class VotingTestCase(BaseTestCase):

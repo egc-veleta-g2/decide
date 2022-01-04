@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 
 from .models import Vote
-from .serializers import VoteSerializer
+# from .serializers import VoteSerializer
 from base import mods
 from base.models import Auth
 from base.tests import BaseTestCase

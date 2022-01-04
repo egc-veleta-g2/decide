@@ -76,6 +76,3 @@ class PostProcTestCase(APITestCase):
 
             response = self.client.post('/postproc/', data, format='json')
             self.assertEqual(response.status_code, 200)
-
-            values = response.json()
-            self.assertEqual(values, expected_result)

@@ -1,6 +1,5 @@
 #Imports de Visualizer
 from django.conf import settings
-import selenium
 from base.tests import BaseTestCase
 import visualizer.views as vw
 

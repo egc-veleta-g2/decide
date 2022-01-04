@@ -93,7 +93,7 @@ class VotingTestCase(BaseTestCase):
                 data = {
                     'voting': v.id,
                     'voter': voter.voter_id,
-                    'vote': { 'a': a, 'b': b },
+                    'vote': [{ 'a': a, 'b': b }],
                 }
                 clear[opt.number] += 1
                 user = self.get_or_create_user(voter.voter_id)
@@ -107,7 +107,7 @@ class VotingTestCase(BaseTestCase):
         data = {
             'voting': v.id,
             'voter': voter.voter_id,
-            'vote': { 'a': a, 'b': b },
+            'vote':  [{ 'a': a, 'b': b }],
         }
         user = self.get_or_create_user(voter.voter_id)
         self.login(user=user.username)

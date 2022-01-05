@@ -88,9 +88,17 @@
                             </div>
                             <template>
                                 <div>
+                                  {% if abstencion == 0 %}
+                                  <b-progress :max="max">
+                                    <b-progress-bar :value=100>
+                                      <span>No ha habido abstención</span>
+                                    </b-progress-bar>
+                                  </b-progress>
+                                {% else %}
                                   <b-progress class="mt-2" :max="max" show-value>
                                     <b-progress-bar :value={{abstencion}} variant="danger"></b-progress-bar>
                                   </b-progress>
+                                {% endif %}
                                 </div>
                               </template>
                               

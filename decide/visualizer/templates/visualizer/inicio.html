@@ -27,7 +27,13 @@
     <tbody>
     {% for votacion in vot_finalizadas %}
       <tr>
-        <td><a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a></td>
+        <td>
+          {% if votacion not in list_noVotados %}
+            <a>{{votacion.name}} (Cerrada sin votos)</a>
+          {% else %}
+            <a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a>
+          {% endif %}
+        </td>
         <td>{{votacion.desc}}</td>
         <td>{{votacion.start_date}}</td>
         <td>{{votacion.end_date}}</td>

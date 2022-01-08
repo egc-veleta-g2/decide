@@ -85,6 +85,13 @@ class VisualizerInicioView(TemplateView):
         context['min_num_opciones'] = num_opciones2
         context['name_min'] = name_min
 
+        list_noVotados = []
+        for v in votaciones_finalizadas:
+            votos= v.tally
+            cantidad_votos= len(votos)
+            if cantidad_votos == 0:
+                list_noVotados.append(v)
+        context['list_noVotados'] = list_noVotados
 
         return context
 

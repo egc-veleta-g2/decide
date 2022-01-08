@@ -7,6 +7,9 @@ class PostProcView(APIView):
     def identity(self, options):
         out = []
 
+        if len(options) == 0:
+            raise(Exception('Error: no hay opciones'))
+
         for opt in options:
             out.append({
                 **opt,
@@ -16,11 +19,59 @@ class PostProcView(APIView):
         out.sort(key=lambda x: -x['postproc'])
         return Response(out)
 
+    def equality(self, options):
+        out = []
+
+        if len(options) == 0:
+            raise(Exception('Error: no hay opciones'))
+
+        hombres = 0
+        mujeres = 0
+        for opt in options:
+            mujeres += opt['votesM']
+            hombres += opt['votesH']
+        if hombres == 0:
+
+            for opt in options:
+                votos = opt['votesM']
+
+                out.append({
+                    **opt,
+                    'postproc': votos,
+                })
+
+        elif mujeres == 0:
+
+            for opt in options:
+                votos = opt['votesH']
+
+                out.append({
+                    **opt,
+                    'postproc': votos,
+                })
+
+        else:
+
+            for opt in options:
+                if mujeres > hombres:
+                    votos = opt['votesH'] + opt['votesM'] * (hombres / mujeres)
+                else:
+                    votos = opt['votesM'] + opt['votesH'] * (mujeres / hombres)
+
+                out.append({
+                    **opt,
+                    'postproc': round(votos),
+                })
+
+        out.sort(key=lambda x: -x['postproc'])
+
+        return Response(out)
+
     def borda(self, options):
         out = []
 
         if len(options) == 0:
-            raise(Exception('Bad request: There no options'))
+            raise(Exception('Error: no hay opciones'))
 
         for opt in options:
             numVotes = 0
@@ -56,7 +107,7 @@ class PostProcView(APIView):
             return self.identity(opts)
         if t == 'BORDA':
             return self.borda(opts)
-
-        #out.append({'type': t, 'options': result})
+        if t == 'EQUALITY':
+            return self.equality(opts)
 
         return Response({})

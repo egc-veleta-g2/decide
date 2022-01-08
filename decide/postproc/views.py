@@ -30,7 +30,7 @@ class PostProcView(APIView):
         for opt in options:
             mujeres += opt['votesM']
             hombres += opt['votesH']
-        
+            
         if hombres == 0:
 
             for opt in options:
@@ -52,7 +52,7 @@ class PostProcView(APIView):
                 })
 
         else:
-            
+
             for opt in options:
                 if mujeres > hombres:
                     votos = opt['votesH'] + opt['votesM'] * (hombres / mujeres)
@@ -110,7 +110,5 @@ class PostProcView(APIView):
             return self.borda(opts)
         if t == 'EQUALITY':
             return self.equality(opts)
-
-        #out.append({'type': t, 'options': result})
 
         return Response({})

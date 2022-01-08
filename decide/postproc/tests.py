@@ -80,7 +80,7 @@ class PostProcTestCase(APITestCase):
 
         values = response.json()
         self.assertEqual(values, resultado)
-    
+
     def testIdentitySinOption(self):
         with self.assertRaises(Exception):
             datos = {
@@ -88,6 +88,7 @@ class PostProcTestCase(APITestCase):
             }
 
             response = self.client.post('/postproc/', datos, format='json')
+            self.assertEqual(response.status_code, 200)
 
 
     def test_borda(self):
@@ -131,6 +132,7 @@ class PostProcTestCase(APITestCase):
             }
 
             response = self.client.post('/postproc/', datos, format='json')
+            self.assertEqual(response.status_code, 200)
 
     def testBordaNoVotes(self):
         datos = {
@@ -307,6 +309,7 @@ class PostProcTestCase(APITestCase):
                 'type': 'EQUALITY'
             }
             response = self.client.post('/postproc/', datos, format='json')
+            self.assertEqual(response.status_code, 200)
 
     def testIgualdadSinOpciones(self):
         with self.assertRaises(Exception):
@@ -316,3 +319,4 @@ class PostProcTestCase(APITestCase):
             }
 
             response = self.client.post('/postproc/', datos, format='json')
+            self.assertEqual(response.status_code, 200)

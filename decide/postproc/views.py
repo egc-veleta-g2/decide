@@ -30,7 +30,6 @@ class PostProcView(APIView):
         for opt in options:
             mujeres += opt['votesM']
             hombres += opt['votesH']
-            
         if hombres == 0:
 
             for opt in options:

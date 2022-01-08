@@ -13,25 +13,127 @@
 {% block content %}
 <h1>¡Bienvenidos a los resultados de las votaciones en Decide!</h1>
 <div class="mt-5">
+  <h2>Votaciones cerradas</h1>
 <table class="table" aria-describedby="votingsInfo">
     <thead>
       <tr>
         <th scope="col">Votación</th>
         <th scope="col">Descripción</th>
         <th scope="col">Fecha de inicio</th>
+        <th scope="col">Fecha de fin</th>
+        <th scope="col">Estado</th>
       </tr>
     </thead>
     <tbody>
     {% for votacion in vot_finalizadas %}
       <tr>
-        <td><a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a></td>
+        <td>
+          {% if votacion not in list_noVotados %}
+            <a>{{votacion.name}} (Cerrada sin votos)</a>
+          {% else %}
+            <a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a>
+          {% endif %}
+        </td>
         <td>{{votacion.desc}}</td>
         <td>{{votacion.start_date}}</td>
+        <td>{{votacion.end_date}}</td>
+        <td>Cerrada</td>
       </tr>
     {% endfor %}
     </tbody>
 </table>
 </div>
+
+<div class="mt-5">
+  <h2>Otras votaciones</h1>
+<table class="table" aria-describedby="votingsInfo">
+    <thead>
+      <tr>
+        <th scope="col">Votación</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Fecha de inicio</th>
+        <th scope="col">Fecha de fin</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for votacion2 in vot_no_finalizadas %}
+      <tr>
+        <td>{{votacion2.name}}</a></td>
+        <td>{{votacion2.desc}}</td>
+        <td>{{votacion2.start_date}}</td>
+        <td>{{votacion2.end_date}}</td>
+        <td>{% if votacion2 in vot_cerradas %}
+             Pendiente Tally
+            {% elif votacion2 in vot_no_iniciadas%}
+             No activa
+            {% else %}
+             Abierta
+            {% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+<div>
+  <b-button v-b-toggle.collapse-3 variant="primary">Estadísticas</b-button>
+  <b-collapse id="collapse-3" class="mt-2">
+    <b-card>
+      <p class="card-text">        
+      <div class="voting container">
+          <h2 class="heading">Estadísticas de las votaciones</h2>
+
+          <table class="table table-bordered table-striped">
+            <tr>
+              <td class="table-dark">Votaciones cerradas</td>
+              <td>{{num_vot_finalizadas}} de {{num_vot_totales}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Personas en el censo</td>
+              <td>{{num_censo}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Duración votación más larga</td>
+              <td>{{max_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Nombre votación más larga</td>
+              <td>{{name_max_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Duración votación más corta</td>
+              <td>{{min_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Nombre votación más corta</td>
+              <td>{{name_min_duracion}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Mayor número de opciones</td>
+              <td>{{max_num_opciones}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Votación con el mayor num de opciones</td>
+              <td>{{name_max}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Menor número de opciones</td>
+              <td>{{min_num_opciones}}</td>
+            </tr>
+            <tr>
+              <td class="table-dark">Votación con el menor num de opciones</td>
+              <td>{{name_min}}</td>
+            </tr>
+          </table>
+      </div></p>
+      </b-collapse>
+    </b-card>
+  </b-collapse>
+</div>
+
+
 </div>
 {% endblock %}
 

@@ -2,9 +2,6 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from base.tests import BaseTestCase
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-from django.conf import settings
 
 class testPaginaPrincipal(StaticLiveServerTestCase):
 
@@ -18,7 +15,7 @@ class testPaginaPrincipal(StaticLiveServerTestCase):
 
   def tearDown(self):
       self.driver.quit()
-  
+
   def test_comprobarAdministracion(self):
       self.driver.get("{}".format(self.live_server_url))
       self.driver.implicitly_wait(3)

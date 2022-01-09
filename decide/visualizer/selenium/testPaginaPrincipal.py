@@ -23,6 +23,7 @@ class testPaginaPrincipal(StaticLiveServerTestCase):
   
   def test_comprobarAdministracion(self):
     self.driver.get("{}".format(self.live_server_url))
+    self.driver.implicitly_wait(3)
     self.driver.set_window_size(1294, 704)
     self.driver.find_element(By.LINK_TEXT, "Administración").click()
     elements = self.driver.find_elements(By.LINK_TEXT, "Django administration")
@@ -31,6 +32,7 @@ class testPaginaPrincipal(StaticLiveServerTestCase):
   
   def test_comprobarDocumentacion(self):
     self.driver.get("{}".format(self.live_server_url))
+    self.driver.implicitly_wait(3)
     self.driver.set_window_size(1294, 704)
     self.driver.find_element(By.LINK_TEXT, "Documentación").click()
     elements = self.driver.find_elements(By.CSS_SELECTOR, "span:nth-child(2)")
@@ -39,6 +41,7 @@ class testPaginaPrincipal(StaticLiveServerTestCase):
   
   def test_comprobarCabina(self):
     self.driver.get("{}".format(self.live_server_url))
+    self.driver.implicitly_wait(3)
     self.driver.set_window_size(1294, 704)
     self.driver.find_element(By.LINK_TEXT, "Cabina").click()
     elements = self.driver.find_elements(By.LINK_TEXT, "Bienvenido/a a la cabina de votación")
@@ -47,6 +50,7 @@ class testPaginaPrincipal(StaticLiveServerTestCase):
   
   def test_estilosFuncionan(self):
     self.driver.get("{}".format(self.live_server_url))
+    self.driver.implicitly_wait(3)
     self.driver.set_window_size(1294, 704)
     elements = self.driver.find_elements(By.ID, "nav-collapse")
     assert len(elements) > 0

@@ -351,6 +351,36 @@ class VotingTestCase(BaseTestCase):
 
 
 
+    def test_create_voting_invalidurl(self):
+        self.login()
+
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'url': '//',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = mods.post('voting', params=data, response=True)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_voting_url(self):
+
+        self.login()
+
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'url': 'palabra',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = self.client.post('/voting/', data, format='json')
+        self.assertEqual(response.status_code, 201)
+
+
 # métodos auxiliares
 
     def create_voting_prueba(self):
@@ -397,6 +427,7 @@ class VotingTestCase(BaseTestCase):
             q.full_clean()
             q.save()
         self.assertEqual(ValidationError, type(raised.exception))
+
 
     def test_check_start_voting(self):
         self.login()
@@ -531,3 +562,19 @@ class VotingTestCase(BaseTestCase):
 
         self.assertEquals(list(list_votados)[0], v)
 
+    def test_create_rank_order_incorrect(self):
+        # Se introduce rank order con tipo identidad (por defecto), lo cual no está permitido
+        data = {'option_types': '2', 'desc':'descripcion', 'type':'0', 'options-0-number': '1',
+                'options-1-number':'2', 'options-0-option':'opción A', 'options-1-option': 'opcion B'}
+        self.login()
+        response = self.client.put('/admin/voting/question/add/', data, format='json')
+        self.assertEqual(response.status_code, 302) # Se comprueba que redirige en lugar de crear la pregunta
+
+
+    @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
+    def test_create_rank_order(self):
+        data = {'option_types': '1', 'desc':'descripcion', 'type':'0', 'options-0-number': '1',
+                'options-1-number':'2', 'options-0-option':'opción A', 'options-1-option': 'opcion B'}
+        self.login()
+        response = self.client.post('/admin/voting/question/add/', data, follow=True)
+        self.assertEqual(response.status_code, 200) # Se comprueba que da 200 OK, por tanto se crea la pregunta

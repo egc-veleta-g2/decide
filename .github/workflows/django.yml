@@ -59,7 +59,8 @@ jobs:
           heroku_email: "jesbarsig@alum.us.es"
   notify:
     if: ${{ always() }}
-    needs: [build,deploy]    runs-on: ubuntu-latest
+    needs: [build,deploy]
+    runs-on: ubuntu-latest
     steps:
       - name: Send mail
         uses: dawidd6/action-send-mail@v2

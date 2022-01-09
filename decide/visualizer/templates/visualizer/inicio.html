@@ -28,7 +28,7 @@
     {% for votacion in vot_finalizadas %}
       <tr>
         <td>
-          {% if votacion not in list_noVotados %}
+          {% if votacion in list_noVotados %}
             <a>{{votacion.name}} (Cerrada sin votos)</a>
           {% else %}
             <a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a>
@@ -88,7 +88,11 @@
           <table class="table table-bordered table-striped">
             <tr>
               <td class="table-dark">Votaciones cerradas</td>
+              {% if hay_vot_totales %}
               <td>{{num_vot_finalizadas}} de {{num_vot_totales}}</td>
+              {% else %}
+              <td>No hay votaciones</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Personas en el censo</td>
@@ -96,35 +100,67 @@
             </tr>
             <tr>
               <td class="table-dark">Duración votación más larga</td>
+              {% if hay_vot_finalizadas %}
               <td>{{max_duracion}}</td>
+              {% else %}
+              <td id="novotaciones">No hay votaciones finalizadas</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Nombre votación más larga</td>
+              {% if hay_vot_finalizadas %}
               <td>{{name_max_duracion}}</td>
+              {% else %}
+              <td>No hay votaciones finalizadas</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Duración votación más corta</td>
+              {% if hay_vot_finalizadas %}
               <td>{{min_duracion}}</td>
+              {% else %}
+              <td>No hay votaciones finalizadas</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Nombre votación más corta</td>
+              {% if hay_vot_finalizadas %}
               <td>{{name_min_duracion}}</td>
+              {% else %}
+              <td>No hay votaciones finalizadas</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Mayor número de opciones</td>
+              {% if hay_vot_totales %}
               <td>{{max_num_opciones}}</td>
+              {% else %}
+              <td>No hay votaciones</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Votación con el mayor num de opciones</td>
+              {% if hay_vot_totales %}
               <td>{{name_max}}</td>
+              {% else %}
+              <td>No hay votaciones</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Menor número de opciones</td>
+              {% if hay_vot_totales %}
               <td>{{min_num_opciones}}</td>
+              {% else %}
+              <td>No hay votaciones</td>
+              {% endif %}
             </tr>
             <tr>
               <td class="table-dark">Votación con el menor num de opciones</td>
+              {% if hay_vot_totales %}
               <td>{{name_min}}</td>
+              {% else %}
+              <td>No hay votaciones</td>
+              {% endif %}
             </tr>
           </table>
       </div></p>

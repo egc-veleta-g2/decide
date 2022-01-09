@@ -138,18 +138,18 @@ class PostProcTestCase(APITestCase):
         datos = {
             'type': 'BORDA',
             'options': [
-                {'option': 'Option 1', 'number': 1, 'points': 0, 'votes': [0, 0, 0, 0]},
-                {'option': 'Option 2', 'number': 2, 'points': 0, 'votes': [0, 0, 0, 0]},
-                {'option': 'Option 3', 'number': 3, 'points': 0, 'votes': [0, 0, 0, 0]},
-                {'option': 'Option 4', 'number': 4, 'points': 0, 'votes': [0, 0, 0, 0]},
+                {'option': 'Option 1', 'number': 1, 'votes': [0, 0, 0, 0]},
+                {'option': 'Option 2', 'number': 2, 'votes': [0, 0, 0, 0]},
+                {'option': 'Option 3', 'number': 3, 'votes': [0, 0, 0, 0]},
+                {'option': 'Option 4', 'number': 4, 'votes': [0, 0, 0, 0]},
             ]
         }
 
         resultado = [
-                {'option': 'Option 1', 'number': 1, 'points': 0, 'votes': [0, 0, 0, 0], 'postproc': 0},
-                {'option': 'Option 2', 'number': 2, 'points': 0, 'votes': [0, 0, 0, 0], 'postproc': 0},
-                {'option': 'Option 3', 'number': 3, 'points': 0, 'votes': [0, 0, 0, 0], 'postproc': 0},
-                {'option': 'Option 4', 'number': 4, 'points': 0, 'votes': [0, 0, 0, 0], 'postproc': 0},
+                {'option': 'Option 1', 'number': 1, 'votes': [0, 0, 0, 0], 'postproc': 0},
+                {'option': 'Option 2', 'number': 2, 'votes': [0, 0, 0, 0], 'postproc': 0},
+                {'option': 'Option 3', 'number': 3, 'votes': [0, 0, 0, 0], 'postproc': 0},
+                {'option': 'Option 4', 'number': 4, 'votes': [0, 0, 0, 0], 'postproc': 0},
             ]
 
         response = self.client.post('/postproc/', datos, format='json')
@@ -162,22 +162,22 @@ class PostProcTestCase(APITestCase):
         datos = {
             'type': 'EQUALITY',
             'options': [
-                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 3, 'points': 0, 'votes': 0},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 4, 'points': 0, 'votes': 0},
-                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 3, 'points': 0, 'votes': 0},
-                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 1, 'points': 0, 'votes': 0},
+                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 3, 'votes': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 4, 'votes': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 3, 'votes': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 1, 'votes': 0},
             ]
         }
 
         resultado = [
-                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 3, 'points': 0, 'votes': 0, 'postproc': 4},
-                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 4},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 4, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 3, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 2},
-                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 3, 'votes': 0, 'postproc': 4},
+                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 1, 'votes': 0, 'postproc': 4},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 4, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 3, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 1, 'votes': 0, 'postproc': 2},
+                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'votes': 0, 'postproc': 1},
             ]
 
 
@@ -191,22 +191,22 @@ class PostProcTestCase(APITestCase):
         datos = {
             'type': 'EQUALITY',
             'options': [
-                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0},
+                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 0, 'votes': 0},
             ]
         }
 
         resultado = [
-                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 2},
-                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 1},
-                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 1},
-                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 1},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 0, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 1', 'number': 1, 'votesH': 2, 'votesM': 0, 'votes': 0, 'postproc': 2},
+                {'option': 'Option 4', 'number': 4, 'votesH': 1, 'votesM': 0, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 0, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 0, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
             ]
 
 
@@ -220,22 +220,22 @@ class PostProcTestCase(APITestCase):
         datos = {
             'type': 'EQUALITY',
             'options': [
-                {'option': 'Option 1', 'number': 1, 'votesH': 3, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 2', 'number': 2, 'votesH': 1, 'votesM': 2, 'points': 0, 'votes': 0},
-                {'option': 'Option 3', 'number': 3, 'votesH': 2, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 6', 'number': 6, 'votesH': 3, 'votesM': 3, 'points': 0, 'votes': 0},
+                {'option': 'Option 1', 'number': 1, 'votesH': 3, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 1, 'votesM': 2, 'votes': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 2, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 3, 'votesM': 3, 'votes': 0},
             ]
         }
 
         resultado = [
-                {'option': 'Option 6', 'number': 6, 'votesH': 3, 'votesM': 3, 'points': 0, 'votes': 0, 'postproc': 5},
-                {'option': 'Option 1', 'number': 1, 'votesH': 3, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 2', 'number': 2, 'votesH': 1, 'votesM': 2, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 3', 'number': 3, 'votesH': 2, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 2},
-                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 3, 'votesM': 3, 'votes': 0, 'postproc': 5},
+                {'option': 'Option 1', 'number': 1, 'votesH': 3, 'votesM': 1, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 2', 'number': 2, 'votesH': 1, 'votesM': 2, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 3', 'number': 3, 'votesH': 2, 'votesM': 1, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 1, 'votes': 0, 'postproc': 2},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
             ]
 
         response = self.client.post('/postproc/', datos, format='json')
@@ -248,22 +248,22 @@ class PostProcTestCase(APITestCase):
         datos = {
             'type': 'EQUALITY',
             'options': [
-                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 2, 'points': 0, 'votes': 0},
-                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 1, 'points': 0, 'votes': 0},
-                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 3, 'points': 0, 'votes': 0},
+                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 2, 'votes': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 3, 'votes': 0},
             ]
         }
 
         resultado = [
-                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 3, 'points': 0, 'votes': 0, 'postproc': 3},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 2, 'points': 0, 'votes': 0, 'postproc': 2},
-                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 1},
-                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 1},
-                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 1, 'points': 0, 'votes': 0, 'postproc': 1},
-                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 3, 'votes': 0, 'postproc': 3},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 2, 'votes': 0, 'postproc': 2},
+                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 1, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 1, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 1, 'votes': 0, 'postproc': 1},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
             ]
 
         response = self.client.post('/postproc/', datos, format='json')
@@ -276,22 +276,22 @@ class PostProcTestCase(APITestCase):
         datos = {
             'type': 'EQUALITY',
             'options': [
-                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
-                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0},
+                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 0, 'votes': 0},
             ]
         }
 
         resultado = [
-                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
-                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
-                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
-                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
-                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
-                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 0, 'points': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 1', 'number': 1, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
             ]
 
 
@@ -319,3 +319,92 @@ class PostProcTestCase(APITestCase):
 
             response = self.client.post('/postproc/', datos, format='json')
             self.assertEqual(response.status_code, 200)
+
+    def testSinType(self):
+        datos = {
+            'options': [
+                { 'option': 'Option 1', 'number': 1, 'votes': 5 },
+                { 'option': 'Option 2', 'number': 2, 'votes': 0 },
+                { 'option': 'Option 3', 'number': 3, 'votes': 3 },
+                { 'option': 'Option 4', 'number': 4, 'votes': 2 },
+                { 'option': 'Option 5', 'number': 5, 'votes': 5 },
+                { 'option': 'Option 6', 'number': 6, 'votes': 1 },
+            ]
+        }
+
+        resultado = [
+            { 'option': 'Option 1', 'number': 1, 'votes': 5, 'postproc': 5 },
+            { 'option': 'Option 5', 'number': 5, 'votes': 5, 'postproc': 5 },
+            { 'option': 'Option 3', 'number': 3, 'votes': 3, 'postproc': 3 },
+            { 'option': 'Option 4', 'number': 4, 'votes': 2, 'postproc': 2 },
+            { 'option': 'Option 6', 'number': 6, 'votes': 1, 'postproc': 1 },
+            { 'option': 'Option 2', 'number': 2, 'votes': 0, 'postproc': 0 },
+        ]
+
+        response = self.client.post('/postproc/', datos, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        values = response.json()
+        self.assertEqual(values, resultado)
+
+    def testIgualdadSinIndicarType(self):
+    #   No ordena por genero, aunque tenga datos de genero
+        datos = {
+            'options': [
+                {'option': 'Option 1', 'number': 1, 'votesH': 5, 'votesM': 1,  'votes': 1},
+                {'option': 'Option 2', 'number': 2, 'votesH': 2, 'votesM': 2,  'votes': 2},
+                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 1,  'votes': 1},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0,  'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 1,  'votes': 1},
+                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 3,  'votes': 3},
+            ]
+        }
+
+        resultado = [
+                {'option': 'Option 6', 'number': 6, 'votesH': 0, 'votesM': 3,  'votes': 3, 'postproc': 3},
+                {'option': 'Option 2', 'number': 2, 'votesH': 2, 'votesM': 2,  'votes': 2, 'postproc': 2},
+                {'option': 'Option 1', 'number': 1, 'votesH': 5, 'votesM': 1,  'votes': 1, 'postproc': 1},
+                {'option': 'Option 3', 'number': 3, 'votesH': 3, 'votesM': 1,  'votes': 1, 'postproc': 1},
+                {'option': 'Option 5', 'number': 5, 'votesH': 1, 'votesM': 1,  'votes': 1, 'postproc': 1},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0,  'votes': 0, 'postproc': 0},
+            ]
+
+        response = self.client.post('/postproc/', datos, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        values = response.json()
+        self.assertEqual(values, resultado)
+
+    def testDatosVacio(self):
+        with self.assertRaises(Exception):
+            datos = {}
+            response = self.client.post('/postproc/', datos, format='json')
+            self.assertEqual(response.status_code, 200)
+    
+    def testIgualdadMismosHqueM(self):
+        datos = {
+            'type': 'EQUALITY',
+            'options': [
+                {'option': 'Option 1', 'number': 1, 'votesH': 3, 'votesM': 3, 'votes': 0},
+                {'option': 'Option 2', 'number': 2, 'votesH': 4, 'votesM': 4, 'votes': 0},
+                {'option': 'Option 3', 'number': 3, 'votesH': 1, 'votesM': 1, 'votes': 0},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0},
+                {'option': 'Option 5', 'number': 5, 'votesH': 3, 'votesM': 3, 'votes': 0},
+                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 1, 'votes': 0},
+            ]
+        }
+            #   postproc = votesH + votesM
+        resultado = [
+                {'option': 'Option 2', 'number': 2, 'votesH': 4, 'votesM': 4, 'votes': 0, 'postproc': 8},
+                {'option': 'Option 1', 'number': 1, 'votesH': 3, 'votesM': 3, 'votes': 0, 'postproc': 6},
+                {'option': 'Option 5', 'number': 5, 'votesH': 3, 'votesM': 3, 'votes': 0, 'postproc': 6},
+                {'option': 'Option 3', 'number': 3, 'votesH': 1, 'votesM': 1, 'votes': 0, 'postproc': 2},
+                {'option': 'Option 6', 'number': 6, 'votesH': 1, 'votesM': 1, 'votes': 0, 'postproc': 2},
+                {'option': 'Option 4', 'number': 4, 'votesH': 0, 'votesM': 0, 'votes': 0, 'postproc': 0},
+            ]
+
+        response = self.client.post('/postproc/', datos, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        values = response.json()
+        self.assertEqual(values, resultado)

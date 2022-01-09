@@ -54,7 +54,7 @@ class Voting(models.Model):
 
     def clean(self):
         urlValidacion = self.url
-        if '/' in urlValidacion:
+        if urlValidacion and '/' in urlValidacion:
             raise ValidationError("El valor / no es válido")
 
     def create_pubkey(self):

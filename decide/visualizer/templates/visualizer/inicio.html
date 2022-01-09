@@ -25,9 +25,10 @@
       </tr>
     </thead>
     <tbody>
+    {% for votacion in vot_finalizadas %}
       <tr>
         <td>
-          {% for votacion in vot_finalizadas %}
+          {% if votacion in list_noVotados %}
             <a>{{votacion.name}} (Cerrada sin votos)</a>
           {% else %}
             <a href="{% url 'visualizer' votacion.id %}">{{votacion.name}}</a>

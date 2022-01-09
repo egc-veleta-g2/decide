@@ -72,7 +72,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email content
-          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          subject: Notificación de CI (${{ job.status }})
+          body: El proceso de integración continua en el repositorio ${{ github.repository }} ha finalizado con estado ${{ job.status }}.
           to: jesbarsig@alum.us.es,ferherque@alum.us.es,manmogvil@alum.us.es,lizesqsaa@alum.us.es,julibamon@alum.us.es
           from: EGC Veleta G2

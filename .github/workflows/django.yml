@@ -38,7 +38,7 @@ jobs:
 
       run: cd decide;python manage.py makemigrations; python manage.py migrate
 
-    - name: Run tests     
+    - name: Run tests
       run: cd decide;coverage run --branch --source=. ./manage.py test authentication booth census postproc store visualizer voting --keepdb; coverage xml;
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1.1.0
@@ -54,7 +54,25 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "egc-veleta"
+          heroku_app_name: "egc-veleta-g2"
 
-          heroku_email: "jesbarsig@alum.us.es"
-
+          heroku_email: "manmogvil@alum.us.es"
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send mail
+        if: always()
+        uses: dawidd6/action-send-mail@v2
+        with:
+          # mail server settings
+          server_address: smtp.gmail.com
+          server_port: 465
+          # user credentials
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          # email content
+          subject: Notificación de CI (${{ job.status }})
+          body: El proceso de integración continua en el repositorio ${{ github.repository }} ha finalizado con estado ${{ job.status }}.
+          to: jesbarsig@alum.us.es,ferherque@alum.us.es,manmogvil@alum.us.es,lizesqsaa@alum.us.es,julibamon@alum.us.es
+          from: EGC Veleta G2

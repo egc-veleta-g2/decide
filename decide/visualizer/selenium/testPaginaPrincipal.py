@@ -23,7 +23,7 @@ class testPaginaPrincipal(StaticLiveServerTestCase):
       self.driver.find_element(By.LINK_TEXT, "Administración").click()
       elements = self.driver.find_elements(By.LINK_TEXT, "Django administration")
       assert len(elements) > 0
-  
+
   def test_comprobarCabina(self):
       self.driver.get("{}".format(self.live_server_url))
       self.driver.implicitly_wait(3)

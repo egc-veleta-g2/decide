@@ -43,3 +43,17 @@ class TestTestgraficas(StaticLiveServerTestCase):
         self.driver.find_element(By.LINK_TEXT, "Saber sobre ti").click()
         self.driver.find_element(By.CSS_SELECTOR, "div:nth-child(2) > .btn").click()
         assert self.driver.find_element(By.ID, "titulo_metricas").text == "Métricas"
+
+    def test_titulo_votacion(self):
+        self.driver.get("{}".format(self.live_server_url))
+        self.driver.implicitly_wait(3)
+        self.driver.find_element(By.LINK_TEXT, "Visualización").click()
+        self.driver.find_element(By.LINK_TEXT, "Saber sobre ti").click()
+        assert self.driver.find_element(By.CSS_SELECTOR, "h1").text == "Saber sobre ti"
+
+    def test_titulo_votacion_2(self):
+        self.driver.get("{}".format(self.live_server_url))
+        self.driver.implicitly_wait(3)
+        self.driver.find_element(By.LINK_TEXT, "Visualización").click()
+        self.driver.find_element(By.LINK_TEXT, "Lugares").click()
+        assert self.driver.find_element(By.CSS_SELECTOR, "h1").text == "Lugares"

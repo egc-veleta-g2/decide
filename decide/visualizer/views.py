@@ -29,69 +29,81 @@ class VisualizerInicioView(TemplateView):
         context['num_vot_finalizadas'] = len(votaciones_finalizadas)
         context['num_censo'] = len(censo_votantes)
 
-        first1 = True
-        for i in votaciones_finalizadas:
-            if first1:
-                fecha_inicio= str(i.start_date)
-                fecha_fin= str(i.end_date)
-                fechas = dateComparer(fecha_inicio,fecha_fin)
-                fechas2 = fechas[3]
-                name_max_dur = i.name
-                first1 = False
-            else:
-                fecha_inicio= str(i.start_date)
-                fecha_fin= str(i.end_date)
-                fechas = dateComparer(fecha_inicio,fecha_fin)
-                if fechas[3] > fechas2:
+        hay_vot_finalizadas = False
+        if len(votaciones_finalizadas)!=0:
+            hay_vot_finalizadas = True
+
+            first1 = True
+            for i in votaciones_finalizadas:
+                if first1:
+                    fecha_inicio= str(i.start_date)
+                    fecha_fin= str(i.end_date)
+                    fechas = dateComparer(fecha_inicio,fecha_fin)
                     fechas2 = fechas[3]
                     name_max_dur = i.name
-        context['max_duracion'] = fechas2
-        context['name_max_duracion'] = name_max_dur
+                    first1 = False
+                else:
+                    fecha_inicio= str(i.start_date)
+                    fecha_fin= str(i.end_date)
+                    fechas = dateComparer(fecha_inicio,fecha_fin)
+                    if fechas[3] > fechas2:
+                        fechas2 = fechas[3]
+                        name_max_dur = i.name
+            context['max_duracion'] = fechas2
+            context['name_max_duracion'] = name_max_dur
 
-        first2 = True
-        for i in votaciones_finalizadas:
-            if first2:
-                fecha_inicio= str(i.start_date)
-                fecha_fin= str(i.end_date)
-                fechas = dateComparer(fecha_inicio,fecha_fin)
-                fechas3 = fechas[3]
-                name_min_dur = i.name
-                first2 = False
-            else:
-                fecha_inicio= str(i.start_date)
-                fecha_fin= str(i.end_date)
-                fechas = dateComparer(fecha_inicio,fecha_fin)
-                if fechas[3] < fechas2:
+            first2 = True
+            for i in votaciones_finalizadas:
+                if first2:
+                    fecha_inicio= str(i.start_date)
+                    fecha_fin= str(i.end_date)
+                    fechas = dateComparer(fecha_inicio,fecha_fin)
                     fechas3 = fechas[3]
                     name_min_dur = i.name
-        context['min_duracion'] = fechas3
-        context['name_min_duracion'] = name_min_dur
+                    first2 = False
+                else:
+                    fecha_inicio= str(i.start_date)
+                    fecha_fin= str(i.end_date)
+                    fechas = dateComparer(fecha_inicio,fecha_fin)
+                    if fechas[3] < fechas2:
+                        fechas3 = fechas[3]
+                        name_min_dur = i.name
+            context['min_duracion'] = fechas3
+            context['name_min_duracion'] = name_min_dur
 
-        num_opciones = 0
-        for i in votaciones_totales:
-            num = len(i.question.options.all())
-            if num > num_opciones:
-               num_opciones = num
-               name_max = i.name
-        context['max_num_opciones'] = num_opciones
-        context['name_max'] = name_max
+            list_noVotados = []
+            for v in votaciones_finalizadas:
+                votos= v.tally
+                cantidad_votos= len(votos)
+                if cantidad_votos == 0:
+                    list_noVotados.append(v)
+            context['list_noVotados'] = list_noVotados
 
-        num_opciones2 = 10000
-        for i in votaciones_totales:
-            num = len(i.question.options.all())
-            if num < num_opciones2:
-               num_opciones2 = num
-               name_min = i.name
-        context['min_num_opciones'] = num_opciones2
-        context['name_min'] = name_min
 
-        list_noVotados = []
-        for v in votaciones_finalizadas:
-            votos= v.tally
-            cantidad_votos= len(votos)
-            if cantidad_votos == 0:
-                list_noVotados.append(v)
-        context['list_noVotados'] = list_noVotados
+        context['hay_vot_finalizadas'] = hay_vot_finalizadas
+
+        hay_vot_totales = False
+        if len(votaciones_totales)!=0:
+            hay_vot_totales = True
+
+            num_opciones = 0
+            for i in votaciones_totales:
+                num = len(i.question.options.all())
+                if num > num_opciones:
+                    num_opciones = num
+                    name_max = i.name
+            context['max_num_opciones'] = num_opciones
+            context['name_max'] = name_max
+
+            num_opciones2 = 10000
+            for i in votaciones_totales:
+                num = len(i.question.options.all())
+                if num < num_opciones2:
+                    num_opciones2 = num
+                    name_min = i.name
+            context['min_num_opciones'] = num_opciones2
+            context['name_min'] = name_min
+        context['hay_vot_totales'] = hay_vot_totales
 
         return context
 

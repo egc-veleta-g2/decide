@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from django.conf import settings
 
 class TestInicioVisualizerDatos(StaticLiveServerTestCase):
-  fixtures = ['visualizer/migrations/datos_prueba.json', ] 
+  fixtures = ['visualizer/migrations/datos_prueba.json', ]
   def setUp(self):
     options = webdriver.ChromeOptions()
     options.headless = False

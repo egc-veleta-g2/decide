@@ -2,9 +2,6 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from base.tests import BaseTestCase
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-from django.conf import settings
 
 class TestTestgraficas(StaticLiveServerTestCase):
     fixtures = ['visualizer/migrations/datos_prueba.json', ]
@@ -20,7 +17,7 @@ class TestTestgraficas(StaticLiveServerTestCase):
 
     def tearDown(self):
         self.driver.quit()
-        
+
     def test_grafica_barras(self):
         self.driver.get("{}".format(self.live_server_url))
         self.driver.implicitly_wait(3)

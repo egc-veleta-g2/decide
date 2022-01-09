@@ -58,11 +58,11 @@ jobs:
 
           heroku_email: "manmogvil@alum.us.es"
   notify:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Send mail
-        if: always()
+        if: ${{ always() }}
+        needs: [build,deploy]
         uses: dawidd6/action-send-mail@v2
         with:
           # mail server settings

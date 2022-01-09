@@ -54,9 +54,9 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "egc-veleta-g2"
+          heroku_app_name: "egc-veleta"
 
-          heroku_email: "manmogvil@alum.us.es"
+          heroku_email: "jesbarsig@alum.us.es"
   notify:
     needs: build
     runs-on: ubuntu-latest
@@ -74,5 +74,5 @@ jobs:
           # email content
           subject: Notificación de CI (${{ job.status }})
           body: El proceso de integración continua en el repositorio ${{ github.repository }} ha finalizado con estado ${{ job.status }}.
-          to: jesbarsig@alum.us.es,ferherque@alum.us.es,manmogvil@alum.us.es,lizesqsaa@alum.us.es,julibamon@alum.us.es
-          from: EGC Veleta G2
+          to: jesbarsig@alum.us.es,ferherque@alum.us.es,manmogvil@alum.us.es,lizesqsaa@alum.us.es,julibamon@alum.us.es,isaarrveg@alum.us.es,alegondia1@alum.us.es,albtolmay@alum.us.es
+          from: EGC Veleta

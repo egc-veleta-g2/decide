@@ -58,7 +58,7 @@ jobs:
 
           heroku_email: "manmogvil@alum.us.es"
   notify:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Send mail

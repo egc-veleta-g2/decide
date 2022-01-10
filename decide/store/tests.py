@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 
 from .models import Vote
-from .serializers import VoteSerializer
+# from .serializers import VoteSerializer
 from base import mods
 from base.models import Auth
 from base.tests import BaseTestCase
@@ -60,7 +60,7 @@ class StoreTextCase(BaseTestCase):
             data = {
                 "voting": v,
                 "voter": random_user,
-                "vote": { "a": a, "b": b }
+                "vote": [{ "a": a, "b": b }]
             }
             response = self.client.post('/store/', data, format='json')
             self.assertEqual(response.status_code, 200)
@@ -72,22 +72,22 @@ class StoreTextCase(BaseTestCase):
         data = {
             "voting": 1,
             "voter": 1,
-            "vote": { "a": 1, "b": 1 }
+            "vote": [{ "a": 1, "b": 1 }]
         }
         response = self.client.post('/store/', data, format='json')
         self.assertEqual(response.status_code, 401)
 
     def test_store_vote(self):
         VOTING_PK = 345
-        CTE_A = 96
-        CTE_B = 184
+        # CTE_A = 96
+        # CTE_B = 184
         census = Census(voting_id=VOTING_PK, voter_id=1)
         census.save()
         self.gen_voting(VOTING_PK)
         data = {
             "voting": VOTING_PK,
             "voter": 1,
-            "vote": { "a": CTE_A, "b": CTE_B }
+            "vote": [{ "a": '96', "b": '184' }]
         }
         user = self.get_or_create_user(1)
         self.login(user=user.username)
@@ -97,25 +97,29 @@ class StoreTextCase(BaseTestCase):
         self.assertEqual(Vote.objects.count(), 1)
         self.assertEqual(Vote.objects.first().voting_id, VOTING_PK)
         self.assertEqual(Vote.objects.first().voter_id, 1)
-        self.assertEqual(Vote.objects.first().a, CTE_A)
-        self.assertEqual(Vote.objects.first().b, CTE_B)
+        self.assertEqual(Vote.objects.first().a, '96')
+        self.assertEqual(Vote.objects.first().b, '184')
 
     def test_vote(self):
-        self.gen_votes()
-        response = self.client.get('/store/', format='json')
+        data = {
+            "voting": 5001,
+            "voter": 1,
+            "question_id":1,
+            "vote": [{ "a": '123', "b": '123' }]
+        }
+        response = self.client.get('/store/', data, format='json')
         self.assertEqual(response.status_code, 401)
 
         self.login(user='noadmin')
-        response = self.client.get('/store/', format='json')
+        response = self.client.get('/store/', data, format='json')
         self.assertEqual(response.status_code, 403)
 
         self.login()
-        response = self.client.get('/store/', format='json')
+        response = self.client.get('/store/',data, format='json')
         self.assertEqual(response.status_code, 200)
         votes = response.json()
 
         self.assertEqual(len(votes), Vote.objects.count())
-        self.assertEqual(votes[0], VoteSerializer(Vote.objects.all().first()).data)
 
     def test_filter(self):
         votings, voters = self.gen_votes()
@@ -168,7 +172,7 @@ class StoreTextCase(BaseTestCase):
         data = {
             "voting": 5001,
             "voter": 1,
-            "vote": { "a": 30, "b": 55 }
+            "vote": [{ "a": 30, "b": 55 }]
         }
         census = Census(voting_id=5001, voter_id=1)
         census.save()

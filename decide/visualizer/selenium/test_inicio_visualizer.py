@@ -34,7 +34,7 @@ class TestInicioVisualizerDatos(StaticLiveServerTestCase):
     assert len(elements) > 0
     elements = self.driver.find_elements(By.CSS_SELECTOR, "th:nth-child(2)")
     assert len(elements) > 0
-  
+
   def test_tabla_metricas_existe(self):
     self.driver.get("{}/visualizer".format(self.live_server_url))
     self.driver.set_window_size(1848, 1016)

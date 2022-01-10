@@ -379,7 +379,7 @@ class PostProcTestCase(APITestCase):
             datos = {}
             response = self.client.post('/postproc/', datos, format='json')
             self.assertEqual(response.status_code, 200)
-    
+
     def testIgualdadMismosHqueM(self):
         datos = {
             'type': 'EQUALITY',

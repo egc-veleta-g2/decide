@@ -32,7 +32,7 @@ class VisualizerTestCase(BaseTestCase):
         resultado = "0 días, 0 horas, 19 minutos y 29 segundos "
         diferencia = vw.dateComparer(fecha1, fecha2)[0]
         self.assertEqual(diferencia, resultado)
-    
+ 
     def test_date_comparer_2(self):
         fecha1 = "2021-12-18T10:48:22.969419Z"
         fecha2 = "2021-12-19T12:07:51.009086Z"

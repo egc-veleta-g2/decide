@@ -54,7 +54,7 @@ jobs:
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "egc-veleta-g1"
+          heroku_app_name: "egc-veleta"
 
-          heroku_email: "marmolpen3@alum.us.es"
+          heroku_email: "jesbarsig@alum.us.es"
 

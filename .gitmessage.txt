@@ -1,0 +1,28 @@
+<tipo> : <asunto>
+
+<cuerpo>
+
+<pie>
+
+# BORRAR TODOS LOS COMENTARIOS ANTES DEL COMMIT
+
+# Tipos
+# feat (nueva funcionalidad)
+# fix (corrección de bugs)
+# docs (actualización de documentación)
+# refactor (refactorización de código)
+# test (incorporación o modificación de tests)
+# conf (modificación de archivos de configuración)
+
+
+# Asunto
+# Se incluirá una breve descripción del problema que se ha tratado y que debe de comenzar con un verbo en infinitivo. Al final de
+# ésta, se deberá de referenciar a la issue de la siguiente manera: #<ID_issue>
+
+# Cuerpo
+# Se incluirá una explicación indicando qué cambios se han realizado respecto a la versión anterior existente en el repositorio, 
+# usando verbos en participio
+
+# Pie (opcional)
+# Únicamente se usará en el último commit de una issue, para su cierre automático de la forma: Closes #<ID_issue>
+

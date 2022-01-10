@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
 
     'corsheaders',
     'django_filters',
@@ -68,7 +67,7 @@ MODULES = [
 ]
 
 
-BASEURL = 'https://egc-veleta.herokuapp.com'
+BASEURL = 'https://egc-veleta-g2.herokuapp.com'
 APIS = {}
 
 MIDDLEWARE = [
@@ -97,6 +96,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'staticfiles': 'django.templatetags.static',
+            }
         },
     },
 ]

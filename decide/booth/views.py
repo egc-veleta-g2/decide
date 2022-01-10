@@ -22,9 +22,9 @@ class BoothView(TemplateView):
         context = obtener_votacion(self, context, vid)
         return context
 
-
 class BoothUrlView(TemplateView):
     template_name = 'booth/booth.html'
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,6 +47,7 @@ def obtener_votacion(self, context, vid):
             r[0]['pub_key'][k] = str(v)
 
         context['voting'] = json.dumps(r[0])
+        context['rank_order'] = int(r[0]['question']['option_types']) == 2
 
     except:
         raise Http404
@@ -82,8 +83,11 @@ class InicioView(TemplateView):
 
         list_noVotados = []
         for v in votaciones:
-            for c in mis_censos:
-                if v.id == c.voting_id and v not in list_votados:
-                    list_noVotados.append(v)
+            if v.poll == True and v not in list_votados:
+                list_noVotados.append(v)
+            else:
+                for c in mis_censos:
+                    if v.id == c.voting_id and v not in list_votados:
+                        list_noVotados.append(v)
 
         return list_votados, list_noVotados

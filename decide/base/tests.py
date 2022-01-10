@@ -34,3 +34,16 @@ class BaseTestCase(APITestCase):
 
     def logout(self):
         self.client.credentials()
+
+
+class InicioTest(BaseTestCase):
+
+    def setUp(self):
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+
+    def test_obtener_inicio(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)

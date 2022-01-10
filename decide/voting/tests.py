@@ -12,6 +12,10 @@ from mixnet.mixcrypt import ElGamal
 from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
+
+# from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
+
 from store.models import Vote
 
 
@@ -31,7 +35,7 @@ class VotingTestCase(BaseTestCase):
         return k.encrypt(msg)
 
     def create_voting(self):
-        q = Question(desc='test question')
+        q = Question(desc='test question', option_types=1)
         q.save()
         for i in range(5):
             opt = QuestionOption(question=q, option='option {}'.format(i+1))
@@ -89,7 +93,7 @@ class VotingTestCase(BaseTestCase):
                 data = {
                     'voting': v.id,
                     'voter': voter.voter_id,
-                    'vote': { 'a': a, 'b': b },
+                    'vote': [{ 'a': a, 'b': b }],
                 }
                 clear[opt.number] += 1
                 user = self.get_or_create_user(voter.voter_id)
@@ -103,7 +107,7 @@ class VotingTestCase(BaseTestCase):
         data = {
             'voting': v.id,
             'voter': voter.voter_id,
-            'vote': { 'a': a, 'b': b },
+            'vote':  [{ 'a': a, 'b': b }],
         }
         user = self.get_or_create_user(voter.voter_id)
         self.login(user=user.username)
@@ -115,7 +119,9 @@ class VotingTestCase(BaseTestCase):
 
         v.create_pubkey()
         v.start_date = timezone.now()
+        print("antes de guardar")
         v.save()
+        print("despues de guardar")
 
         clear = self.store_votes(v)
 
@@ -262,7 +268,10 @@ class VotingTestCase(BaseTestCase):
         response = self.client.post('/voting/dichotomy', data)
         self.assertEqual(response.status_code, 301)
 
+
+
         #Comporbamos que se puede realizar una votación con la pregunta dicotómica creada anteriormente
+
         a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
                                           defaults={'me': True, 'name': 'test auth'})
 
@@ -339,6 +348,86 @@ class VotingTestCase(BaseTestCase):
         self.login()
         response = self.client.put('/voting/dichotomy/', data, format='json')
         self.assertEqual(response.status_code, 200)
+
+
+
+    def test_create_voting_invalidurl(self):
+        self.login()
+
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'url': '//',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = mods.post('voting', params=data, response=True)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_voting_url(self):
+
+        self.login()
+
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'url': 'palabra',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = self.client.post('/voting/', data, format='json')
+        self.assertEqual(response.status_code, 201)
+
+
+# métodos auxiliares
+
+    def create_voting_prueba(self):
+            q = Question(desc='test question 2', option_types= 1)
+            q.save()
+            for i in range(5):
+                opt = QuestionOption(question=q, option='option {}'.format(i + 1))
+                opt.save()
+            v = Voting(name='test voting 2',question=q)
+
+            v.save()
+            a, _ = Auth.objects.get_or_create(url=settings.BASEURL,
+                                          defaults={'me': True, 'name': 'test auth'})
+            a.save()
+            v.auths.add(a)
+
+            return v
+
+    def create_question(self):
+        q = Question(desc='test question')
+        q.save()
+        return q
+
+#PRUEBAS UNITARIAS
+
+
+    # Caso positivo: se crean dos votaciones con nombres diferentes y se cumple correctamente
+
+    def test_duplicate_voting_name_positive(self):
+        v1 = self.create_voting()
+        v2 = self.create_voting_prueba()
+        self.assertNotEqual(v1, v2)
+
+    # rank order (opciones)
+
+
+    # creación de una question con valores de option_type no valido.
+
+    def test_create_question_optiontypes_neg(self):
+        q = self.create_question()
+        q.option_types = 9999
+
+        with self.assertRaises(Exception) as raised:
+            q.full_clean()
+            q.save()
+        self.assertEqual(ValidationError, type(raised.exception))
+
 
     def test_check_start_voting(self):
         self.login()
@@ -472,3 +561,20 @@ class VotingTestCase(BaseTestCase):
                     list_votados.add(v)
 
         self.assertEquals(list(list_votados)[0], v)
+
+    def test_create_rank_order_incorrect(self):
+        # Se introduce rank order con tipo identidad (por defecto), lo cual no está permitido
+        data = {'option_types': '2', 'desc':'descripcion', 'type':'0', 'options-0-number': '1',
+                'options-1-number':'2', 'options-0-option':'opción A', 'options-1-option': 'opcion B'}
+        self.login()
+        response = self.client.put('/admin/voting/question/add/', data, format='json')
+        self.assertEqual(response.status_code, 302) # Se comprueba que redirige en lugar de crear la pregunta
+
+
+    @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
+    def test_create_rank_order(self):
+        data = {'option_types': '1', 'desc':'descripcion', 'type':'0', 'options-0-number': '1',
+                'options-1-number':'2', 'options-0-option':'opción A', 'options-1-option': 'opcion B'}
+        self.login()
+        response = self.client.post('/admin/voting/question/add/', data, follow=True)
+        self.assertEqual(response.status_code, 200) # Se comprueba que da 200 OK, por tanto se crea la pregunta

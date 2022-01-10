@@ -12,6 +12,7 @@
     {% endblock %}
 
     {% block content %}
+    <h1>[[voting.name]]</h1>
         <div>
             <b-button v-b-toggle.collapse-2 variant="primary">Resultados</b-button>
             <b-collapse id="collapse-2" class="mt-2">
@@ -22,23 +23,25 @@
                     <h2 v-else-if="!voting.end_date">Votación en curso</h2>
                     <div v-else>
                         <h2 class="heading">Resultados:</h2>
+        
+                        <div aria-labelledby="chartsInfo" class="row my-5 text-left">
+                          <input id="votacion" type="hidden" value="{{voting}}">
+                          <div class="col-lg-6">
+                              <b-card class="mb-2">
+                                  <div class="mb-4">
+                                      <canvas id="bar-resultados" aria-label="Diagrama con resultados"></canvas>
+                                  </div>
+                              </b-card>
+                          </div>
+                          <div class="col-lg-6">
+                              <b-card class="mb-2">
+                                  <div class="mb-4">
+                                      <canvas id="pie-porcentaje" aria-label="Diagrama con porcentaje de voto en cada opción"></canvas>
+                                  </div>
+                              </b-card>
+                          </div>
+                      </div>
 
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Opción</th>
-                                    <th>Puntuación</th>
-                                    <th>Votos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="opt in voting.postproc" :key="opt.number">
-                                    <th>[[opt.option]]</th>
-                                    <td>[[opt.postproc]]</td>
-                                    <td class="text-muted">[[opt.votes]]</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div></p>
                 </b-collapse>
@@ -87,9 +90,17 @@
                             </div>
                             <template>
                                 <div>
+                                  {% if abstencion == 0 %}
+                                  <b-progress :max="max">
+                                    <b-progress-bar :value=100>
+                                      <span>No ha habido abstención</span>
+                                    </b-progress-bar>
+                                  </b-progress>
+                                {% else %}
                                   <b-progress class="mt-2" :max="max" show-value>
                                     <b-progress-bar :value={{abstencion}} variant="danger"></b-progress-bar>
                                   </b-progress>
+                                {% endif %}
                                 </div>
                               </template>
 
@@ -111,23 +122,7 @@
             </b-collapse>
           </div>
           <br>
-          <div aria-labelledby="chartsInfo" class="row my-5 text-left">
-                <input id="votacion" type="hidden" value="{{voting}}">
-                <div class="col-lg-6">
-                    <b-card class="mb-2">
-                        <div class="mb-4">
-                            <canvas id="bar-resultados" aria-label="Diagrama con resultados"></canvas>
-                        </div>
-                    </b-card>
-                </div>
-                <div class="col-lg-6">
-                    <b-card class="mb-2">
-                        <div class="mb-4">
-                            <canvas id="pie-porcentaje" aria-label="Diagrama con porcentaje de voto en cada opción"></canvas>
-                        </div>
-                    </b-card>
-                </div>
-            </div>
+        
     </div>
 </div>
 {% endblock %}

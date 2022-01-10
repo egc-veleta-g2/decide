@@ -300,7 +300,6 @@ class PostProcTestCase(APITestCase):
 
         values = response.json()
         self.assertEqual(values, resultado)
-    
 
     def testIgualdadSinOption(self):
         with self.assertRaises(Exception):

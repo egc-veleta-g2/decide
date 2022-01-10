@@ -1,5 +1,3 @@
-#Imports de Visualizer
-from django.conf import settings
 from base.tests import BaseTestCase
 import visualizer.views as vw
 
@@ -16,7 +14,7 @@ class VisualizerTestCase(BaseTestCase):
     def test_obtener_resultado_votacion_no_existe(self):
         response = self.client.get('/visualizer/10000/')
         self.assertEqual(response.status_code, 404)
-    
+
     def test_obtener_resultado_votacion_existe(self):
         response = self.client.get('/visualizer/1/')
         self.assertEqual(response.status_code, 200)

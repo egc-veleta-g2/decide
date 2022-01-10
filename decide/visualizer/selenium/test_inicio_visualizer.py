@@ -16,7 +16,7 @@ class TestInicioVisualizerDatos(StaticLiveServerTestCase):
 
   def tearDown(self):
     self.driver.quit()
-    
+ 
   def test_texto_acceso_inicio_visualizer_correcto(self):
     self.driver.get("{}/visualizer".format(self.live_server_url))
     self.driver.implicitly_wait(2)
